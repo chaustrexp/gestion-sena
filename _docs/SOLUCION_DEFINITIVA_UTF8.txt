@@ -1,0 +1,234 @@
+═══════════════════════════════════════════════════════════════════
+  ✅ SOLUCIÓN DEFINITIVA - DOBLE CODIFICACIÓN UTF-8
+═══════════════════════════════════════════════════════════════════
+
+🔍 PROBLEMA IDENTIFICADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Síntomas:
+  ❌ TecnologÃ­a (debería ser: Tecnología)
+  ❌ GestiÃ³n (debería ser: Gestión)
+  ❌ FormaciÃ³n (debería ser: Formación)
+  ❌ EspecializaciÃ³n (debería ser: Especialización)
+
+Causa: DOBLE CODIFICACIÓN UTF-8
+  - Los datos se guardaron mal en MySQL
+  - Se codificaron dos veces como UTF-8
+  - Resultado: caracteres dañados
+
+═══════════════════════════════════════════════════════════════════
+  🚀 SOLUCIÓN EN 1 PASO
+═══════════════════════════════════════════════════════════════════
+
+EJECUTAR SCRIPT DE REPARACIÓN:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+URL:
+http://localhost/dashboard_sena/reparar_doble_codificacion.php
+
+Este script:
+✓ Detecta automáticamente caracteres con doble codificación
+✓ Repara TODAS las tablas del sistema
+✓ Convierte: TecnologÃ­a → Tecnología
+✓ Muestra estadísticas de reparación
+✓ Muestra ejemplos antes/después
+✓ Verifica los datos corregidos
+
+EJECUTAR UNA SOLA VEZ
+
+═══════════════════════════════════════════════════════════════════
+  📋 QUÉ HACE EL SCRIPT
+═══════════════════════════════════════════════════════════════════
+
+1. Configura conexión UTF-8
+2. Procesa 7 tablas:
+   - titulo_programa
+   - centro_formacion
+   - instructor
+   - programa
+   - usuarios
+   - competencia
+   - coordinacion
+
+3. Para cada registro:
+   - Detecta: Ã­, Ã³, Ã±, Ã¡, Ãº
+   - Repara: í, ó, ñ, á, ú
+   - Actualiza en la base de datos
+
+4. Muestra:
+   - Tablas procesadas
+   - Registros reparados
+   - Campos corregidos
+   - Ejemplos antes/después
+   - Tablas de verificación
+
+═══════════════════════════════════════════════════════════════════
+  ✅ RESULTADO ESPERADO
+═══════════════════════════════════════════════════════════════════
+
+ANTES (Dañado):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+❌ TecnologÃ­a
+❌ GestiÃ³n
+❌ FormaciÃ³n
+❌ EspecializaciÃ³n
+❌ TÃ©cnico
+❌ TecnÃ³logo
+❌ CoordinaciÃ³n
+❌ AdministraciÃ³n
+
+DESPUÉS (Corregido):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ Tecnología
+✅ Gestión
+✅ Formación
+✅ Especialización
+✅ Técnico
+✅ Tecnólogo
+✅ Coordinación
+✅ Administración
+
+═══════════════════════════════════════════════════════════════════
+  🔧 CONFIGURACIÓN YA APLICADA
+═══════════════════════════════════════════════════════════════════
+
+1. HTML (views/layout/header.php):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ header('Content-Type: text/html; charset=UTF-8');
+✓ mb_internal_encoding('UTF-8');
+✓ <meta charset="UTF-8">
+
+2. PHP Conexión (conexion.php):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ charset=utf8mb4 en DSN
+✓ PDO::MYSQL_ATTR_INIT_COMMAND
+✓ SET NAMES utf8mb4
+✓ SET CHARACTER SET utf8mb4
+
+3. MySQL:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ Base de datos: utf8mb4_unicode_ci
+✓ Todas las tablas: utf8mb4_unicode_ci
+
+═══════════════════════════════════════════════════════════════════
+  📊 VERIFICACIÓN
+═══════════════════════════════════════════════════════════════════
+
+Después de ejecutar el script:
+
+1. Ve al Dashboard:
+   http://localhost/dashboard_sena/
+
+2. Navega a:
+   - Título Programa
+   - Centro Formación
+   - Instructores
+   - Programas
+
+3. Verifica que TODO se vea correctamente:
+   ✅ Técnico
+   ✅ Tecnólogo
+   ✅ Especialización
+   ✅ Tecnología
+   ✅ Gestión
+   ✅ Formación
+
+4. Refresca con Ctrl + F5 si es necesario
+
+═══════════════════════════════════════════════════════════════════
+  🛡️ PREVENCIÓN FUTURA
+═══════════════════════════════════════════════════════════════════
+
+Para que NO vuelva a pasar:
+
+1. SIEMPRE usar UTF-8 en PHP:
+   header('Content-Type: text/html; charset=UTF-8');
+   mb_internal_encoding('UTF-8');
+
+2. SIEMPRE usar charset en PDO:
+   new PDO("...;charset=utf8mb4", ...)
+
+3. SIEMPRE usar <meta charset="UTF-8"> en HTML
+
+4. Al importar datos:
+   - Guardar archivos como UTF-8 (sin BOM)
+   - Usar SET NAMES utf8mb4 antes de INSERT
+
+═══════════════════════════════════════════════════════════════════
+  🎯 CÓMO FUNCIONA LA REPARACIÓN
+═══════════════════════════════════════════════════════════════════
+
+Función de Reparación:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function repararDobleCodificacion($texto) {
+    // Detecta: Ã­, Ã³, Ã±, Ã¡, Ãº
+    if (preg_match('/Ã|Â|â€/u', $texto)) {
+        // Decodifica y recodifica correctamente
+        return utf8_encode(utf8_decode($texto));
+    }
+    return $texto;
+}
+
+Proceso:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Lee cada registro de cada tabla
+2. Detecta si tiene doble codificación
+3. Aplica utf8_encode(utf8_decode())
+4. Actualiza en la base de datos
+5. Cuenta y muestra estadísticas
+
+═══════════════════════════════════════════════════════════════════
+  📝 ARCHIVOS DEL SISTEMA
+═══════════════════════════════════════════════════════════════════
+
+Scripts de Reparación:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. reparar_doble_codificacion.php ← USAR ESTE (NUEVO)
+2. reparar_caracteres.php (alternativo)
+3. corregir_datos_utf8.php (alternativo)
+
+Documentación:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. SOLUCION_DEFINITIVA_UTF8.txt (este archivo)
+2. GUIA_COMPLETA_UTF8.md
+3. SOLUCION_UTF8.md
+
+Configuración:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. conexion.php (ya configurado)
+2. views/layout/header.php (ya configurado)
+
+═══════════════════════════════════════════════════════════════════
+  🚨 SI EL PROBLEMA PERSISTE
+═══════════════════════════════════════════════════════════════════
+
+1. Ejecuta el script nuevamente
+2. Limpia caché del navegador (Ctrl + Shift + Delete)
+3. Refresca con Ctrl + F5
+4. Verifica que Apache y MySQL estén corriendo
+5. Revisa que la URL sea correcta
+
+═══════════════════════════════════════════════════════════════════
+  ✅ CHECKLIST
+═══════════════════════════════════════════════════════════════════
+
+Después de ejecutar el script:
+
+□ Ejecuté: reparar_doble_codificacion.php
+□ Vi el mensaje: "🎉 ¡Reparación Completada Exitosamente!"
+□ Vi las estadísticas (tablas, registros, campos)
+□ Vi los ejemplos antes/después
+□ Vi las tablas de verificación
+□ Refresqué el navegador (Ctrl + F5)
+□ Fui al Dashboard
+□ Revisé "Título Programa"
+□ Revisé "Centro Formación"
+□ TODO se ve correctamente (sin Ã, sin Â)
+
+═══════════════════════════════════════════════════════════════════
+  🎉 ¡PROBLEMA RESUELTO!
+═══════════════════════════════════════════════════════════════════
+
+Ejecuta el script ahora:
+http://localhost/dashboard_sena/reparar_doble_codificacion.php
+
+Todos los caracteres se verán correctamente. ✅

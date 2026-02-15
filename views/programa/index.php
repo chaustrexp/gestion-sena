@@ -1,0 +1,68 @@
+<?php
+require_once __DIR__ . '/../../model/ProgramaModel.php';
+
+$model = new ProgramaModel();
+
+// Eliminar
+if (isset($_GET['eliminar'])) {
+    $model->delete($_GET['eliminar']);
+    header('Location: index.php?msg=eliminado');
+    exit;
+}
+
+$registros = $model->getAll();
+$pageTitle = "Gestión de Programas";
+include __DIR__ . '/../layout/header.php';
+include __DIR__ . '/../layout/sidebar.php';
+?>
+
+<div class="main-content">
+    <?php if (isset($_GET['msg'])): ?>
+        <div class="alert alert-success">
+            <?php 
+            if ($_GET['msg'] == 'creado') echo 'Registro creado exitosamente';
+            if ($_GET['msg'] == 'actualizado') echo 'Registro actualizado exitosamente';
+            if ($_GET['msg'] == 'eliminado') echo 'Registro eliminado exitosamente';
+            ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="table-container">
+        <div class="table-header">
+            <h2>Listado de Programas</h2>
+            <a href="crear.php" class="btn btn-primary">+ Nuevo Programa</a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Duración (meses)</th>
+                    <th>Título</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($registros as $registro): ?>
+                <tr>
+                    <td><?php echo $registro['id']; ?></td>
+                    <td><?php echo $registro['codigo']; ?></td>
+                    <td><?php echo $registro['nombre']; ?></td>
+                    <td><?php echo $registro['duracion_meses']; ?></td>
+                    <td><?php echo $registro['titulo_nombre']; ?></td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="ver.php?id=<?php echo $registro['id']; ?>" class="btn btn-secondary btn-sm">Ver</a>
+                            <a href="editar.php?id=<?php echo $registro['id']; ?>" class="btn btn-primary btn-sm">Editar</a>
+                            <button onclick="confirmarEliminacion(<?php echo $registro['id']; ?>, 'programa')" class="btn btn-danger btn-sm">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php include __DIR__ . '/../layout/footer.php'; ?>

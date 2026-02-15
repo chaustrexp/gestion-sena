@@ -1,0 +1,121 @@
+═══════════════════════════════════════════════════════════════════
+  INICIO RÁPIDO - DASHBOARD SENA
+═══════════════════════════════════════════════════════════════════
+
+📋 PROBLEMA COMÚN: Caracteres Raros (Ã, Â, etc.)
+───────────────────────────────────────────────────────────────────
+
+Si ves textos como:
+  ❌ Configuración  (en lugar de: Configuración)
+  ❌ TecnologÃ­a    (en lugar de: Tecnología)
+  ❌ GestiÃ³n       (en lugar de: Gestión)
+
+
+🔧 SOLUCIÓN EN 3 PASOS:
+───────────────────────────────────────────────────────────────────
+
+1️⃣  EJECUTAR REPARACIÓN
+    
+    Opción A (Más fácil):
+    → Doble clic en: REPARAR_UTF8.bat
+    
+    Opción B (Manual):
+    → Abrir navegador
+    → Ir a: http://localhost/Gestion-sena/dashboard_sena/REPARAR_UTF8_AHORA.php
+
+
+2️⃣  ESPERAR
+    
+    → El script mostrará un reporte completo
+    → Verás cuántos registros se repararon
+    → Cuando veas "¡Reparación Completada!" continúa
+
+
+3️⃣  LIMPIAR CACHÉ
+    
+    → Ve al dashboard
+    → Presiona: Ctrl + F5
+    → Verifica que los textos se vean bien
+
+
+═══════════════════════════════════════════════════════════════════
+  ARCHIVOS IMPORTANTES
+═══════════════════════════════════════════════════════════════════
+
+📄 REPARAR_UTF8.bat              → Ejecutar reparación (Windows)
+📄 REPARAR_UTF8_AHORA.php        → Script de reparación (PHP)
+📄 EJECUTAR_REPARACION.html     → Interfaz visual
+📄 SOLUCION_UTF8_RAPIDA.md      → Documentación completa
+📄 COMO_ARREGLAR_LA_LETRA.txt   → Guía paso a paso
+
+
+═══════════════════════════════════════════════════════════════════
+  VERIFICACIÓN
+═══════════════════════════════════════════════════════════════════
+
+Después de la reparación, verifica que se vean correctamente:
+
+✅ Configuración
+✅ Tecnología
+✅ Gestión
+✅ Formación
+✅ Especialización
+✅ Bogotá
+
+
+═══════════════════════════════════════════════════════════════════
+  ¿QUÉ HACE EL SCRIPT?
+═══════════════════════════════════════════════════════════════════
+
+1. Convierte la base de datos a UTF-8 (utf8mb4_unicode_ci)
+2. Convierte todas las tablas a UTF-8
+3. Repara los datos dañados en:
+   - titulo_programa
+   - centro_formacion
+   - sede
+   - coordinacion
+   - instructor
+   - programa
+   - competencia
+   - ambiente
+   - ficha
+   - usuarios
+4. Muestra estadísticas de lo reparado
+5. Verifica que todo esté correcto
+
+
+═══════════════════════════════════════════════════════════════════
+  REQUISITOS
+═══════════════════════════════════════════════════════════════════
+
+✓ XAMPP instalado y corriendo
+✓ Apache activo
+✓ MySQL activo
+✓ Base de datos: dashboard_sena
+✓ Usuario: root (sin contraseña)
+
+
+═══════════════════════════════════════════════════════════════════
+  SI ALGO SALE MAL
+═══════════════════════════════════════════════════════════════════
+
+1. Verifica que XAMPP esté corriendo
+2. Verifica que Apache y MySQL estén activos
+3. Revisa los mensajes de error en el script
+4. Lee la documentación en: SOLUCION_UTF8_RAPIDA.md
+
+
+═══════════════════════════════════════════════════════════════════
+  DESPUÉS DE LA REPARACIÓN
+═══════════════════════════════════════════════════════════════════
+
+✅ Los datos quedan permanentemente corregidos
+✅ No necesitas volver a ejecutar el script
+✅ Todos los nuevos datos se guardarán correctamente en UTF-8
+
+
+═══════════════════════════════════════════════════════════════════
+
+¿Listo? → Ejecuta: REPARAR_UTF8.bat
+
+═══════════════════════════════════════════════════════════════════

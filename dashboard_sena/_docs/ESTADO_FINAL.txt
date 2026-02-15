@@ -1,0 +1,185 @@
+═══════════════════════════════════════════════════════════════
+  ✅ SOLUCIÓN UTF-8 COMPLETADA - Dashboard SENA
+═══════════════════════════════════════════════════════════════
+
+📋 ARCHIVOS CREADOS Y COPIADOS AL SERVIDOR:
+
+1. ✅ SOLUCION_UTF8.md
+   📍 C:\xampp\htdocs\Gestion-sena\SOLUCION_UTF8.md
+   📝 Guía completa con explicación del problema y soluciones
+
+2. ✅ corregir_datos_utf8.php
+   📍 C:\xampp\htdocs\Gestion-sena\corregir_datos_utf8.php
+   🔧 Script PHP automático con interfaz visual
+
+3. ✅ corregir_utf8.sql
+   📍 C:\xampp\htdocs\Gestion-sena\corregir_utf8.sql
+   💾 Script SQL para ejecutar en phpMyAdmin
+
+═══════════════════════════════════════════════════════════════
+  🚀 CÓMO EJECUTAR LA REPARACIÓN
+═══════════════════════════════════════════════════════════════
+
+OPCIÓN 1: Script PHP Automático (RECOMENDADO)
+──────────────────────────────────────────────
+1. Abre tu navegador
+2. Ve a: http://localhost/Gestion-sena/corregir_datos_utf8.php
+3. El script se ejecutará automáticamente
+4. Verás un reporte visual del proceso
+5. ¡Listo! Los datos estarán reparados
+
+OPCIÓN 2: Script SQL Manual
+──────────────────────────────────────────────
+1. Abre phpMyAdmin: http://localhost/phpmyadmin
+2. Selecciona la base de datos "dashboard_sena"
+3. Click en la pestaña "SQL"
+4. Abre el archivo: C:\xampp\htdocs\Gestion-sena\corregir_utf8.sql
+5. Copia todo el contenido
+6. Pégalo en phpMyAdmin
+7. Click en "Continuar"
+
+═══════════════════════════════════════════════════════════════
+  📝 RESPUESTAS A TUS PREGUNTAS
+═══════════════════════════════════════════════════════════════
+
+1️⃣ CONEXIÓN A BD (PDO):
+──────────────────────────────────────────────
+<?php
+$conn = new PDO(
+    "mysql:host=localhost;dbname=dashboard_sena;charset=utf8mb4",
+    "root",
+    "",
+    [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
+    ]
+);
+?>
+
+✅ Tu archivo conexion.php YA TIENE ESTO CORRECTO
+
+──────────────────────────────────────────────
+
+1️⃣ CONEXIÓN A BD (MySQLi - Alternativa):
+──────────────────────────────────────────────
+<?php
+$conexion = new mysqli("localhost", "root", "", "dashboard_sena");
+$conexion->set_charset("utf8mb4");
+?>
+
+──────────────────────────────────────────────
+
+2️⃣ META TAG HTML:
+──────────────────────────────────────────────
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+✅ Tu archivo header.php YA TIENE ESTO CORRECTO
+
+──────────────────────────────────────────────
+
+3️⃣ HEADER PHP:
+──────────────────────────────────────────────
+<?php
+header('Content-Type: text/html; charset=UTF-8');
+mb_internal_encoding('UTF-8');
+?>
+
+✅ Tu archivo header.php YA TIENE ESTO CORRECTO
+
+──────────────────────────────────────────────
+
+4️⃣ COMANDO SQL PARA CAMBIAR COLLATION:
+──────────────────────────────────────────────
+-- Convertir base de datos completa
+ALTER DATABASE dashboard_sena 
+CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
+
+-- Convertir una tabla específica
+ALTER TABLE nombre_tabla 
+CONVERT TO CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
+
+-- Convertir todas las tablas (ejemplo)
+ALTER TABLE usuarios CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE centro_formacion CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE sede CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- ... (continúa con todas las tablas)
+
+📝 NOTA: El script corregir_utf8.sql YA TIENE TODOS LOS COMANDOS
+
+═══════════════════════════════════════════════════════════════
+  ⚠️ IMPORTANTE: DIAGNÓSTICO DEL PROBLEMA
+═══════════════════════════════════════════════════════════════
+
+❌ PROBLEMA ACTUAL:
+   Ves: AnÃ¡lisis, TecnologÃ­a, GestiÃ³n
+
+✅ RESULTADO ESPERADO:
+   Verás: Análisis, Tecnología, Gestión
+
+🔍 CAUSA:
+   Doble codificación UTF-8 en los datos de la base de datos
+   Los datos se guardaron incorrectamente desde el inicio
+
+💡 SOLUCIÓN:
+   1. Convertir estructura de tablas a UTF-8 (collation)
+   2. Reparar datos ya corruptos (doble codificación)
+   3. Tu configuración PHP ya está correcta
+
+═══════════════════════════════════════════════════════════════
+  🎯 VERIFICACIÓN DESPUÉS DE EJECUTAR
+═══════════════════════════════════════════════════════════════
+
+1. Abre phpMyAdmin
+2. Selecciona la base de datos "dashboard_sena"
+3. Abre cualquier tabla (ejemplo: programa)
+4. Verifica que los datos se vean correctos
+
+5. Abre tu aplicación: http://localhost/Gestion-sena/
+6. Verifica que las tablas muestren texto correcto
+
+7. Crea un nuevo registro con tildes y ñ
+8. Verifica que se guarde y muestre correctamente
+
+═══════════════════════════════════════════════════════════════
+  📊 RESUMEN DE CONFIGURACIÓN
+═══════════════════════════════════════════════════════════════
+
+✅ PHP Configuración:
+   • header('Content-Type: text/html; charset=UTF-8')
+   • mb_internal_encoding('UTF-8')
+   • PDO charset=utf8mb4
+
+✅ HTML Configuración:
+   • <meta charset="UTF-8">
+   • <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+⚠️ Base de Datos (NECESITA REPARACIÓN):
+   • Estructura: Convertir a utf8mb4_unicode_ci
+   • Datos: Reparar doble codificación
+
+═══════════════════════════════════════════════════════════════
+  📞 SOPORTE ADICIONAL
+═══════════════════════════════════════════════════════════════
+
+Si después de ejecutar el script sigues viendo problemas:
+
+1. Verifica Apache (httpd.conf):
+   AddDefaultCharset UTF-8
+
+2. Verifica PHP (php.ini):
+   default_charset = "UTF-8"
+
+3. Reinicia Apache después de cambios
+
+4. Limpia caché del navegador (Ctrl + F5)
+
+═══════════════════════════════════════════════════════════════
+
+Fecha: 13 de febrero de 2026
+Sistema: Dashboard SENA - Gestión de Asignaciones
+Versión: 1.0
+
+═══════════════════════════════════════════════════════════════

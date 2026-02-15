@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas UTF-8 - Dashboard SENA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #39A900 0%, #007832 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #007832;
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .tool-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #39A900;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .tool-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .tool-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007832;
+            margin-bottom: 10px;
+        }
+        .tool-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .tool-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #39A900 0%, #2d8700 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .tool-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(57, 169, 0, 0.3);
+        }
+        .tool-btn.secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+        }
+        .problem-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .problem-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .problem-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .problem-box li {
+            color: #856404;
+            margin: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        .problem-box li:before {
+            content: "❌";
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+        .success-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .success-box h3 {
+            color: #155724;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .success-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .success-box li {
+            color: #155724;
+            margin: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        .success-box li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+        .dashboard-btn {
+            display: block;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #007832 0%, #005a25 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: all 0.3s;
+        }
+        .dashboard-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 120, 50, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛠️ Herramientas UTF-8</h1>
+        <p class="subtitle">Centro de control para problemas de codificación</p>
+
+        <div class="problem-box">
+            <h3>🔍 ¿Tienes este problema?</h3>
+            <ul>
+                <li>Configuración → Se ve como "Configuración"</li>
+                <li>Tecnología → Se ve como "TecnologÃ­a"</li>
+                <li>Gestión → Se ve como "GestiÃ³n"</li>
+                <li>Formación → Se ve como "FormaciÃ³n"</li>
+            </ul>
+        </div>
+
+        <div class="tools-grid">
+            <!-- Herramienta 1: Verificar -->
+            <div class="tool-card">
+                <div class="tool-icon">🔍</div>
+                <div class="tool-title">Verificar Estado</div>
+                <div class="tool-description">
+                    Comprueba la configuración actual de UTF-8 en tu sistema, base de datos y datos.
+                </div>
+                <a href="VERIFICAR_UTF8.php" class="tool-btn">Verificar Ahora</a>
+            </div>
+
+            <!-- Herramienta 2: Reparar -->
+            <div class="tool-card">
+                <div class="tool-icon">🔧</div>
+                <div class="tool-title">Reparar Datos</div>
+                <div class="tool-description">
+                    Ejecuta el script completo de reparación UTF-8. Convierte la BD y repara todos los datos dañados.
+                </div>
+                <a href="REPARAR_UTF8_AHORA.php" class="tool-btn">Reparar Ahora</a>
+            </div>
+
+            <!-- Herramienta 3: Documentación -->
+            <div class="tool-card">
+                <div class="tool-icon">📖</div>
+                <div class="tool-title">Documentación</div>
+                <div class="tool-description">
+                    Guía completa paso a paso sobre cómo solucionar problemas de codificación UTF-8.
+                </div>
+                <a href="SOLUCION_UTF8_RAPIDA.md" class="tool-btn secondary" target="_blank">Ver Guía</a>
+            </div>
+
+            <!-- Herramienta 4: Inicio Rápido -->
+            <div class="tool-card">
+                <div class="tool-icon">⚡</div>
+                <div class="tool-title">Inicio Rápido</div>
+                <div class="tool-description">
+                    Resumen visual con los pasos más importantes para solucionar el problema rápidamente.
+                </div>
+                <a href="INICIO_RAPIDO.txt" class="tool-btn secondary" target="_blank">Ver Resumen</a>
+            </div>
+
+            <!-- Herramienta 5: Ejecutar BAT -->
+            <div class="tool-card">
+                <div class="tool-icon">💻</div>
+                <div class="tool-title">Script Windows</div>
+                <div class="tool-description">
+                    Archivo BAT que verifica XAMPP y ejecuta automáticamente la reparación en tu navegador.
+                </div>
+                <a href="REPARAR_UTF8.bat" class="tool-btn secondary" download>Descargar BAT</a>
+            </div>
+
+            <!-- Herramienta 6: Resumen Técnico -->
+            <div class="tool-card">
+                <div class="tool-icon">📊</div>
+                <div class="tool-title">Resumen Técnico</div>
+                <div class="tool-description">
+                    Documentación técnica completa sobre la solución implementada y cómo funciona.
+                </div>
+                <a href="RESUMEN_SOLUCION_UTF8.md" class="tool-btn secondary" target="_blank">Ver Detalles</a>
+            </div>
+        </div>
+
+        <div class="success-box">
+            <h3>✅ Después de la reparación verás:</h3>
+            <ul>
+                <li>Configuración (correctamente)</li>
+                <li>Tecnología (correctamente)</li>
+                <li>Gestión (correctamente)</li>
+                <li>Formación (correctamente)</li>
+                <li>Todos los acentos y caracteres especiales funcionando</li>
+            </ul>
+        </div>
+
+        <a href="index.php" class="dashboard-btn">
+            🏠 Ir al Dashboard Principal
+        </a>
+
+        <div style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">
+            <p><strong>Recomendación:</strong> Ejecuta primero "Verificar Estado" para ver qué necesita repararse</p>
+            <p style="margin-top: 10px;">Luego ejecuta "Reparar Datos" y presiona Ctrl+F5 en el dashboard</p>
+        </div>
+    </div>
+
+    <script>
+        // Agregar efecto de clic a las tarjetas
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A') {
+                    const link = this.querySelector('.tool-btn');
+                    if (link) {
+                        link.click();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

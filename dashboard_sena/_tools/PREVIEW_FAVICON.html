@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview Favicon - Dashboard SENA</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1 {
+            color: #1f2937;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+        }
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .preview-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .preview-card h2 {
+            color: #1f2937;
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .favicon-display {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        .favicon-large {
+            width: 200px;
+            height: 200px;
+            padding: 20px;
+            background: #f5f7fa;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .favicon-large img {
+            width: 100%;
+            height: 100%;
+        }
+        .favicon-sizes {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        .favicon-size {
+            text-align: center;
+        }
+        .favicon-size img {
+            background: #f5f7fa;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .favicon-size span {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 600;
+        }
+        .tab-preview {
+            background: #e5e7eb;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .tab-preview img {
+            width: 20px;
+            height: 20px;
+        }
+        .tab-preview span {
+            color: #1f2937;
+            font-weight: 600;
+        }
+        .info-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #39A900;
+        }
+        .info-box h3 {
+            color: #1b5e20;
+            margin-bottom: 10px;
+        }
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .info-box li {
+            color: #2e7d32;
+            margin: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .info-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #39A900;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #39A900 0%, #007832 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(57, 169, 0, 0.3);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(57, 169, 0, 0.4);
+        }
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 3px 8px;
+            border-radius: 5px;
+            color: #c7254e;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Preview del Favicon</h1>
+            <p class="subtitle">Visualización del icono del Dashboard SENA</p>
+        </div>
+
+        <div class="preview-grid">
+            <!-- Card 1: Favicon Display -->
+            <div class="preview-card">
+                <h2>🖼️ Vista del Favicon</h2>
+                <div class="favicon-display">
+                    <div class="favicon-large">
+                        <img src="assets/images/favicon.svg" alt="Favicon SENA">
+                    </div>
+                    <p style="color: #6b7280; text-align: center;">
+                        Letra "S" con gradiente verde SENA
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 2: Diferentes Tamaños -->
+            <div class="preview-card">
+                <h2>📏 Diferentes Tamaños</h2>
+                <div class="favicon-sizes">
+                    <div class="favicon-size">
+                        <img src="assets/images/favicon.svg" width="16" height="16" alt="16x16">
+                        <span>16x16</span>
+                    </div>
+                    <div class="favicon-size">
+                        <img src="assets/images/favicon.svg" width="32" height="32" alt="32x32">
+                        <span>32x32</span>
+                    </div>
+                    <div class="favicon-size">
+                        <img src="assets/images/favicon.svg" width="64" height="64" alt="64x64">
+                        <span>64x64</span>
+                    </div>
+                    <div class="favicon-size">
+                        <img src="assets/images/favicon.svg" width="128" height="128" alt="128x128">
+                        <span>128x128</span>
+                    </div>
+                </div>
+                <div class="tab-preview">
+                    <img src="assets/images/favicon.svg" alt="Tab">
+                    <span>Dashboard SENA</span>
+                </div>
+                <p style="color: #6b7280; margin-top: 15px; font-size: 14px; text-align: center;">
+                    Así se verá en la pestaña del navegador
+                </p>
+            </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="preview-card">
+            <div class="info-box">
+                <h3>✅ Características del Favicon</h3>
+                <ul>
+                    <li>Formato SVG (escalable sin pérdida de calidad)</li>
+                    <li>Gradiente verde institucional SENA (#39A900 → #007832)</li>
+                    <li>Letra "S" en blanco, bold y centrada</li>
+                    <li>Bordes redondeados modernos</li>
+                    <li>Compatible con todos los navegadores modernos</li>
+                    <li>Se ve nítido en cualquier tamaño</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Instrucciones -->
+        <div class="preview-card">
+            <h2>📋 Cómo Verlo en el Dashboard</h2>
+            <ol style="line-height: 2; color: #4b5563;">
+                <li>Abre el dashboard: <code>http://localhost/Gestion-sena/dashboard_sena/</code></li>
+                <li>Mira la pestaña del navegador (arriba)</li>
+                <li>Deberías ver la "S" verde</li>
+                <li>Si no aparece, presiona <code>Ctrl + Shift + R</code></li>
+            </ol>
+        </div>
+
+        <!-- Acciones -->
+        <div class="actions">
+            <a href="http://localhost/Gestion-sena/dashboard_sena/" class="btn">
+                🚀 Ir al Dashboard
+            </a>
+            <a href="assets/images/favicon.svg" class="btn" download style="background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);">
+                💾 Descargar Favicon
+            </a>
+        </div>
+
+        <!-- Footer Info -->
+        <div style="text-align: center; margin-top: 40px; color: #9ca3af; font-size: 14px;">
+            <p>El favicon se cargará automáticamente en todas las páginas del dashboard</p>
+            <p style="margin-top: 10px;">Archivo ubicado en: <code>assets/images/favicon.svg</code></p>
+        </div>
+    </div>
+</body>
+</html>

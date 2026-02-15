@@ -1,0 +1,331 @@
+═══════════════════════════════════════════════════════════════
+  ✅ MENÚ HAMBURGUESA IMPLEMENTADO - Dashboard SENA
+═══════════════════════════════════════════════════════════════
+
+## 🎯 FUNCIONALIDAD IMPLEMENTADA
+
+Se ha implementado un menú hamburguesa completamente funcional que permite
+colapsar y expandir el sidebar con transiciones suaves.
+
+═══════════════════════════════════════════════════════════════
+  📋 CARACTERÍSTICAS
+═══════════════════════════════════════════════════════════════
+
+✅ Botón Hamburguesa
+   • Ubicación: Esquina superior izquierda del navbar
+   • Diseño: 3 líneas horizontales verdes (#39A900)
+   • Hover: Escala 110% + color más oscuro
+   • Animación suave en todas las interacciones
+
+✅ Sidebar Colapsable
+   • Estado expandido: 280px (muestra iconos + texto)
+   • Estado colapsado: 80px (solo iconos)
+   • Transición suave: 250ms cubic-bezier
+   • Overflow oculto para evitar scroll horizontal
+
+✅ Ajuste Automático del Contenido
+   • Main-content se expande automáticamente
+   • Navbar se ajusta al ancho disponible
+   • Sin superposiciones ni espacios vacíos
+
+✅ Persistencia de Estado
+   • Guarda el estado en localStorage
+   • Mantiene la preferencia entre sesiones
+   • Carga automática al iniciar
+
+✅ Elementos Ocultos en Modo Colapsado
+   • Texto de navegación (Dashboard, Fichas, etc.)
+   • Títulos de sección (Académico, Recursos, etc.)
+   • Logo "SENA" y "Sistema de Gestión"
+   • Nombre y rol del usuario en footer
+
+✅ Elementos Visibles en Modo Colapsado
+   • Iconos de navegación (centrados)
+   • Logo circular verde
+   • Avatar del usuario
+
+═══════════════════════════════════════════════════════════════
+  📋 CÓDIGO HTML - BOTÓN HAMBURGUESA
+═══════════════════════════════════════════════════════════════
+
+<!-- Botón Hamburguesa en Navbar -->
+<button class="hamburger-btn" id="toggleSidebar" aria-label="Toggle Sidebar">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+═══════════════════════════════════════════════════════════════
+  📋 CÓDIGO CSS - ESTILOS
+═══════════════════════════════════════════════════════════════
+
+/* Botón Hamburguesa */
+.hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 200ms;
+    margin-right: 16px;
+}
+
+.hamburger-btn:hover {
+    transform: scale(1.1);
+}
+
+.hamburger-btn span {
+    width: 28px;
+    height: 3px;
+    background: #39A900;
+    border-radius: 2px;
+    transition: all 250ms;
+}
+
+.hamburger-btn:hover span {
+    background: #2d8500;
+}
+
+/* Sidebar Colapsado */
+.sidebar {
+    width: 280px;
+    transition: width 250ms cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+/* Ocultar texto en modo colapsado */
+.sidebar.collapsed .nav-text,
+.sidebar.collapsed .logo-text,
+.sidebar.collapsed .user-info,
+.sidebar.collapsed .section-title {
+    opacity: 0;
+    transform: translateX(-10px);
+    pointer-events: none;
+    position: absolute;
+}
+
+/* Centrar iconos en modo colapsado */
+.sidebar.collapsed .nav-link {
+    justify-content: center;
+    padding: 13px 8px;
+}
+
+/* Ajustar contenido principal */
+.main-content {
+    margin-left: 280px;
+    transition: margin-left 250ms;
+}
+
+.main-content.expanded {
+    margin-left: 80px;
+}
+
+/* Ajustar navbar */
+.navbar {
+    left: 280px;
+    transition: left 250ms;
+}
+
+.navbar.expanded {
+    left: 80px;
+}
+
+═══════════════════════════════════════════════════════════════
+  📋 CÓDIGO JAVASCRIPT - FUNCIONALIDAD
+═══════════════════════════════════════════════════════════════
+
+// Toggle Sidebar (Menú Hamburguesa)
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+    const navbar = document.querySelector('.navbar');
+    
+    // Cargar estado del sidebar desde localStorage
+    const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+    if (sidebarCollapsed) {
+        sidebar.classList.add('collapsed');
+        mainContent.classList.add('expanded');
+        navbar.classList.add('expanded');
+    }
+    
+    // Toggle al hacer clic
+    toggleBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('expanded');
+        navbar.classList.toggle('expanded');
+        
+        // Guardar estado en localStorage
+        const isCollapsed = sidebar.classList.contains('collapsed');
+        localStorage.setItem('sidebarCollapsed', isCollapsed);
+        
+        // Reiniciar iconos de Lucide después de la transición
+        setTimeout(function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }, 300);
+    });
+});
+
+═══════════════════════════════════════════════════════════════
+  🚀 CÓMO USAR
+═══════════════════════════════════════════════════════════════
+
+1. ACCEDER AL SISTEMA
+   http://localhost/Gestion-sena/
+
+2. HACER CLIC EN EL BOTÓN HAMBURGUESA
+   • Ubicado en la esquina superior izquierda
+   • Junto al título "Dashboard Principal"
+
+3. OBSERVAR LA TRANSICIÓN
+   • Sidebar se reduce a 80px
+   • Solo muestra iconos
+   • Contenido principal se expande
+   • Transición suave de 250ms
+
+4. HACER CLIC NUEVAMENTE
+   • Sidebar se expande a 280px
+   • Muestra iconos + texto
+   • Contenido principal se ajusta
+
+5. ESTADO PERSISTENTE
+   • El estado se guarda automáticamente
+   • Se mantiene al recargar la página
+   • Se mantiene entre sesiones
+
+═══════════════════════════════════════════════════════════════
+  📊 COMPARACIÓN ANTES/DESPUÉS
+═══════════════════════════════════════════════════════════════
+
+ANTES:
+❌ Sidebar fijo de 280px
+❌ Sin opción de colapsar
+❌ Ocupa espacio constante
+❌ No adaptable
+
+DESPUÉS:
+✅ Sidebar colapsable (280px ↔ 80px)
+✅ Botón hamburguesa funcional
+✅ Transición suave (250ms)
+✅ Contenido se ajusta automáticamente
+✅ Estado persistente (localStorage)
+✅ Solo iconos en modo colapsado
+✅ Hover effects mantenidos
+✅ Responsive y adaptable
+
+═══════════════════════════════════════════════════════════════
+  🎨 DETALLES VISUALES
+═══════════════════════════════════════════════════════════════
+
+BOTÓN HAMBURGUESA:
+• Tamaño: 28×28px
+• Líneas: 3px de alto, verde SENA
+• Espaciado: Distribuido uniformemente
+• Hover: Escala 110%, color más oscuro
+
+SIDEBAR EXPANDIDO (280px):
+• Logo + texto "SENA"
+• Iconos + texto de navegación
+• Títulos de sección visibles
+• Avatar + nombre + rol
+
+SIDEBAR COLAPSADO (80px):
+• Solo logo circular
+• Solo iconos (centrados)
+• Sin títulos de sección
+• Solo avatar (sin nombre/rol)
+
+TRANSICIONES:
+• Duración: 250ms
+• Easing: cubic-bezier(0.4, 0, 0.6, 1)
+• Propiedades: width, margin-left, left, opacity
+
+═══════════════════════════════════════════════════════════════
+  🔧 PERSONALIZACIÓN
+═══════════════════════════════════════════════════════════════
+
+CAMBIAR ANCHO DEL SIDEBAR COLAPSADO:
+.sidebar.collapsed {
+    width: 70px;  /* Cambiar de 80px a 70px */
+}
+
+.main-content.expanded {
+    margin-left: 70px;
+}
+
+.navbar.expanded {
+    left: 70px;
+}
+
+CAMBIAR VELOCIDAD DE TRANSICIÓN:
+:root {
+    --transition-smooth: 400ms cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+CAMBIAR COLOR DEL BOTÓN:
+.hamburger-btn span {
+    background: #007832;  /* Verde secundario */
+}
+
+═══════════════════════════════════════════════════════════════
+  📁 ARCHIVOS MODIFICADOS
+═══════════════════════════════════════════════════════════════
+
+✅ dashboard_sena/views/layout/header.php
+   • Agregado botón hamburguesa
+
+✅ dashboard_sena/views/layout/footer.php
+   • Agregado JavaScript para toggle
+
+✅ dashboard_sena/assets/css/styles.css
+   • Estilos del botón hamburguesa
+   • Estilos del sidebar colapsado
+   • Transiciones suaves
+   • Ajustes de contenido
+
+✅ C:\xampp\htdocs\Gestion-sena\views\layout\header.php
+✅ C:\xampp\htdocs\Gestion-sena\views\layout\footer.php
+✅ C:\xampp\htdocs\Gestion-sena\assets\css\styles.css
+
+═══════════════════════════════════════════════════════════════
+  ✅ VERIFICACIÓN
+═══════════════════════════════════════════════════════════════
+
+1. Refrescar navegador (Ctrl + F5)
+2. Acceder a http://localhost/Gestion-sena/
+3. Hacer clic en el botón hamburguesa
+4. Verificar que el sidebar se colapsa a 80px
+5. Verificar que solo se muestran iconos
+6. Verificar que el contenido se expande
+7. Hacer clic nuevamente para expandir
+8. Recargar página y verificar que mantiene el estado
+
+═══════════════════════════════════════════════════════════════
+  🎯 CARACTERÍSTICAS TÉCNICAS
+═══════════════════════════════════════════════════════════════
+
+• classList.toggle() para alternar clases
+• localStorage para persistencia
+• transition: all 0.3s ease para suavidad
+• position: absolute para ocultar texto
+• opacity: 0 para fade out
+• transform: translateX() para animación
+• justify-content: center para centrar iconos
+• setTimeout() para reiniciar iconos Lucide
+
+═══════════════════════════════════════════════════════════════
+
+Fecha: 13 de febrero de 2026
+Sistema: Dashboard SENA - Gestión de Asignaciones
+Funcionalidad: Menú Hamburguesa Colapsable
+
+═══════════════════════════════════════════════════════════════

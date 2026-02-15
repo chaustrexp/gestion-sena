@@ -1,0 +1,195 @@
+═══════════════════════════════════════════════════════════════════
+  SOLUCIÓN ERROR 404 - NOT FOUND
+═══════════════════════════════════════════════════════════════════
+
+Si ves el error "Not Found" al intentar acceder al dashboard, 
+sigue estos pasos:
+
+
+🔍 DIAGNÓSTICO DEL PROBLEMA
+───────────────────────────────────────────────────────────────────
+
+El error "Not Found" puede deberse a:
+
+1. ❌ La carpeta no está en la ubicación correcta de XAMPP
+2. ❌ La URL no es correcta
+3. ❌ Apache no está configurado correctamente
+4. ❌ El archivo .htaccess está bloqueando el acceso
+
+
+✅ SOLUCIÓN 1: Verificar Ubicación del Proyecto
+───────────────────────────────────────────────────────────────────
+
+El proyecto DEBE estar en:
+C:\xampp\htdocs\Gestion-sena\dashboard_sena\
+
+Verifica:
+1. Abre el Explorador de Windows
+2. Navega a: C:\xampp\htdocs\
+3. Verifica que exista la carpeta: Gestion-sena
+4. Dentro debe estar: dashboard_sena
+
+
+✅ SOLUCIÓN 2: Probar Diferentes URLs
+───────────────────────────────────────────────────────────────────
+
+Prueba estas URLs en orden:
+
+1. Test básico:
+   http://localhost/Gestion-sena/dashboard_sena/test.php
+
+2. Login directo:
+   http://localhost/Gestion-sena/dashboard_sena/auth/login.php
+
+3. Dashboard (requiere login):
+   http://localhost/Gestion-sena/dashboard_sena/
+
+4. Si Gestion-sena está directamente en htdocs:
+   http://localhost/dashboard_sena/test.php
+
+
+✅ SOLUCIÓN 3: Verificar Apache
+───────────────────────────────────────────────────────────────────
+
+1. Abre XAMPP Control Panel
+2. Verifica que Apache tenga el botón verde "Running"
+3. Si no está corriendo, haz clic en "Start"
+4. Si da error, verifica que el puerto 80 no esté ocupado
+
+
+✅ SOLUCIÓN 4: Verificar Estructura de Carpetas
+───────────────────────────────────────────────────────────────────
+
+La estructura correcta debe ser:
+
+C:\xampp\htdocs\
+└── Gestion-sena\
+    └── dashboard_sena\
+        ├── index.php
+        ├── test.php
+        ├── conexion.php
+        ├── auth\
+        │   └── login.php
+        ├── views\
+        ├── model\
+        └── assets\
+
+
+✅ SOLUCIÓN 5: Mover el Proyecto (Si está en otro lugar)
+───────────────────────────────────────────────────────────────────
+
+Si el proyecto NO está en C:\xampp\htdocs\:
+
+1. Copia toda la carpeta del proyecto
+2. Pégala en: C:\xampp\htdocs\
+3. La ruta final debe ser: C:\xampp\htdocs\Gestion-sena\dashboard_sena\
+4. Reinicia Apache en XAMPP
+
+
+✅ SOLUCIÓN 6: Acceso Directo al Login
+───────────────────────────────────────────────────────────────────
+
+El dashboard principal requiere autenticación. 
+Primero debes acceder al login:
+
+URL del Login:
+http://localhost/Gestion-sena/dashboard_sena/auth/login.php
+
+Si el login funciona, entonces el problema es solo que 
+necesitas iniciar sesión primero.
+
+
+✅ SOLUCIÓN 7: Verificar con Test.php
+───────────────────────────────────────────────────────────────────
+
+Accede a:
+http://localhost/Gestion-sena/dashboard_sena/test.php
+
+Este archivo te mostrará:
+- Si PHP funciona
+- La versión de PHP
+- La ruta actual del proyecto
+- Enlaces a login y herramientas
+
+
+✅ SOLUCIÓN 8: Configurar Virtual Host (Opcional)
+───────────────────────────────────────────────────────────────────
+
+Si quieres usar una URL más corta como:
+http://dashboard-sena.local/
+
+1. Edita: C:\xampp\apache\conf\extra\httpd-vhosts.conf
+2. Agrega:
+
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/Gestion-sena/dashboard_sena"
+    ServerName dashboard-sena.local
+</VirtualHost>
+
+3. Edita: C:\Windows\System32\drivers\etc\hosts
+4. Agrega:
+   127.0.0.1 dashboard-sena.local
+
+5. Reinicia Apache
+
+
+═══════════════════════════════════════════════════════════════════
+  URLS CORRECTAS SEGÚN TU ESTRUCTURA
+═══════════════════════════════════════════════════════════════════
+
+Si tu proyecto está en: C:\xampp\htdocs\Gestion-sena\dashboard_sena\
+
+Test:
+http://localhost/Gestion-sena/dashboard_sena/test.php
+
+Login:
+http://localhost/Gestion-sena/dashboard_sena/auth/login.php
+
+Dashboard:
+http://localhost/Gestion-sena/dashboard_sena/
+
+Verificar UTF-8:
+http://localhost/Gestion-sena/dashboard_sena/VERIFICAR_UTF8.php
+
+
+═══════════════════════════════════════════════════════════════════
+  VERIFICACIÓN RÁPIDA
+═══════════════════════════════════════════════════════════════════
+
+Ejecuta estos pasos en orden:
+
+1. ✓ Verifica que XAMPP esté corriendo
+2. ✓ Abre: http://localhost/
+   (Debe mostrar la página de XAMPP)
+3. ✓ Abre: http://localhost/Gestion-sena/dashboard_sena/test.php
+   (Debe mostrar información del sistema)
+4. ✓ Abre: http://localhost/Gestion-sena/dashboard_sena/auth/login.php
+   (Debe mostrar el formulario de login)
+5. ✓ Inicia sesión
+6. ✓ Ahora sí puedes acceder al dashboard
+
+
+═══════════════════════════════════════════════════════════════════
+  ¿SIGUE SIN FUNCIONAR?
+═══════════════════════════════════════════════════════════════════
+
+Si después de todo esto sigue sin funcionar:
+
+1. Revisa los logs de Apache:
+   C:\xampp\apache\logs\error.log
+
+2. Verifica los permisos de la carpeta
+
+3. Asegúrate de que no haya archivos .htaccess bloqueando
+
+4. Prueba reiniciar completamente XAMPP
+
+5. Verifica que PHP esté habilitado en Apache
+
+
+═══════════════════════════════════════════════════════════════════
+
+¡Importante! El dashboard requiere LOGIN primero.
+Accede al login antes de intentar ver el dashboard.
+
+═══════════════════════════════════════════════════════════════════

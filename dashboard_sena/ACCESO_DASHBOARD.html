@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Dashboard SENA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #39A900 0%, #007832 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 60px;
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+            max-width: 600px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #39A900 0%, #007832 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(57, 169, 0, 0.3);
+        }
+        .logo-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+        }
+        h1 {
+            color: #007832;
+            font-size: 36px;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        .btn-main {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #39A900 0%, #007832 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(57, 169, 0, 0.4);
+            margin: 10px;
+        }
+        .btn-main:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(57, 169, 0, 0.5);
+        }
+        .btn-secondary {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(108, 117, 125, 0.3);
+            margin: 10px;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(108, 117, 125, 0.4);
+        }
+        .info-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border-left: 5px solid #39A900;
+        }
+        .info-box h3 {
+            color: #007832;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        .info-box li {
+            color: #666;
+            margin: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        .info-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #39A900;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 10px 5px;
+        }
+        .status.online {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .quick-link {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #007832;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .quick-link:hover {
+            background: #e8f5e9;
+            border-color: #39A900;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-text">SENA</div>
+        </div>
+        
+        <h1>Dashboard SENA</h1>
+        <p class="subtitle">Sistema de Gestión Académica</p>
+        
+        <div id="status-container">
+            <p style="color: #666; margin-bottom: 20px;">Verificando servidor...</p>
+        </div>
+        
+        <a href="http://localhost/Gestion-sena/dashboard_sena/" class="btn-main" id="mainBtn">
+            🚀 Abrir Dashboard
+        </a>
+        
+        <br>
+        
+        <a href="auth/login.php" class="btn-secondary">
+            🔐 Ir al Login
+        </a>
+
+        <div class="quick-links">
+            <a href="HERRAMIENTAS_UTF8.html" class="quick-link">🛠️ Herramientas UTF-8</a>
+            <a href="VERIFICAR_UTF8.php" class="quick-link">🔍 Verificar UTF-8</a>
+            <a href="REPARAR_UTF8_AHORA.php" class="quick-link">🔧 Reparar UTF-8</a>
+        </div>
+
+        <div class="info-box">
+            <h3>📋 Requisitos</h3>
+            <ul>
+                <li>XAMPP instalado y corriendo</li>
+                <li>Apache activo en el puerto 80</li>
+                <li>MySQL activo en el puerto 3306</li>
+                <li>Base de datos: dashboard_sena</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 30px; color: #999; font-size: 14px;">
+            <p>URL: <code style="background: #f4f4f4; padding: 5px 10px; border-radius: 5px;">http://localhost/Gestion-sena/dashboard_sena/</code></p>
+        </div>
+    </div>
+
+    <script>
+        // Verificar si el servidor está corriendo
+        async function checkServer() {
+            const statusContainer = document.getElementById('status-container');
+            const mainBtn = document.getElementById('mainBtn');
+            
+            try {
+                const response = await fetch('http://localhost/Gestion-sena/dashboard_sena/', { 
+                    method: 'HEAD',
+                    mode: 'no-cors'
+                });
+                
+                statusContainer.innerHTML = '<span class="status online">✓ Servidor Online</span>';
+                mainBtn.style.pointerEvents = 'auto';
+                mainBtn.style.opacity = '1';
+            } catch (error) {
+                statusContainer.innerHTML = `
+                    <span class="status offline">✗ Servidor Offline</span>
+                    <p style="color: #721c24; margin-top: 15px; font-size: 14px;">
+                        ⚠️ Asegúrate de que XAMPP esté corriendo
+                    </p>
+                `;
+                mainBtn.style.pointerEvents = 'none';
+                mainBtn.style.opacity = '0.5';
+            }
+        }
+
+        // Verificar al cargar la página
+        window.addEventListener('load', checkServer);
+
+        // Verificar cada 5 segundos
+        setInterval(checkServer, 5000);
+
+        // Agregar animación al hacer clic
+        document.getElementById('mainBtn').addEventListener('click', function(e) {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

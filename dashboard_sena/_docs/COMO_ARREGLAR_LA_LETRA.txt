@@ -1,0 +1,63 @@
+═══════════════════════════════════════════════════════════════════
+CÓMO ARREGLAR LA LETRA (UTF-8)
+═══════════════════════════════════════════════════════════════════
+
+PROBLEMA:
+Los textos se ven así: TecnologÃ­a, GestiÃ³n, FormaciÃ³n
+Deben verse así: Tecnología, Gestión, Formación
+
+SOLUCIÓN EN 3 PASOS:
+═══════════════════════════════════════════════════════════════════
+
+PASO 1: Ejecutar el Script de Reparación
+─────────────────────────────────────────────────────────────────
+1. Abre tu navegador (Chrome, Firefox, Edge)
+2. Copia y pega esta URL:
+
+   http://localhost/Gestion-sena/dashboard_sena/REPARAR_UTF8_AHORA.php
+
+3. Presiona ENTER
+4. Espera a que termine (verás un reporte completo con estadísticas)
+5. Cuando veas "¡Reparación Completada!" haz clic en "Ir al Dashboard"
+
+
+PASO 2: Limpiar Caché del Navegador
+─────────────────────────────────────────────────────────────────
+1. En el dashboard, presiona: Ctrl + F5
+   (Esto recarga la página sin usar caché)
+
+
+PASO 3: Verificar que Funciona
+─────────────────────────────────────────────────────────────────
+1. Ve a cualquier módulo (Programas, Fichas, Instructores)
+2. Verifica que los textos se vean correctamente:
+   ✓ Tecnología (no TecnologÃ­a)
+   ✓ Gestión (no GestiÃ³n)
+   ✓ Formación (no FormaciÃ³n)
+
+
+═══════════════════════════════════════════════════════════════════
+ALTERNATIVA: Si el script no funciona
+═══════════════════════════════════════════════════════════════════
+
+1. Abre phpMyAdmin: http://localhost/phpmyadmin
+2. Selecciona la base de datos: dashboard_sena
+3. Haz clic en la pestaña "SQL"
+4. Abre el archivo: CONVERTIR_UTF8_COMPLETO.sql
+5. Copia TODO el contenido
+6. Pégalo en phpMyAdmin
+7. Haz clic en "Continuar"
+8. Espera a que termine
+9. Vuelve al dashboard y presiona Ctrl + F5
+
+
+═══════════════════════════════════════════════════════════════════
+¿SIGUE SIN FUNCIONAR?
+═══════════════════════════════════════════════════════════════════
+
+Si después de hacer esto los textos siguen mal, dime:
+1. ¿Qué mensaje te apareció al ejecutar el script?
+2. ¿Hubo algún error?
+3. Envíame una captura de pantalla
+
+═══════════════════════════════════════════════════════════════════

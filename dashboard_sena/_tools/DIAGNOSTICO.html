@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico - Dashboard SENA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #39A900 0%, #007832 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #007832;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #39A900;
+        }
+        .test-section h3 {
+            color: #007832;
+            margin-bottom: 15px;
+        }
+        .status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 5px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #39A900 0%, #007832 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin: 10px 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(57, 169, 0, 0.3);
+        }
+        .url-box {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+        .solution {
+            background: #d1ecf1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #17a2b8;
+        }
+        .solution h4 {
+            color: #0c5460;
+            margin-bottom: 10px;
+        }
+        ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Diagnóstico del Sistema</h1>
+
+        <div class="test-section">
+            <h3>1. Prueba de Servidor</h3>
+            <p id="server-status">Verificando...</p>
+            <div id="server-result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Prueba de PHP</h3>
+            <p id="php-status">Verificando...</p>
+            <div id="php-result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Prueba de Login</h3>
+            <p id="login-status">Verificando...</p>
+            <div id="login-result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. URLs Disponibles</h3>
+            <div class="url-box">
+                <strong>Test PHP:</strong><br>
+                <a href="test.php" target="_blank">http://localhost/Gestion-sena/dashboard_sena/test.php</a>
+            </div>
+            <div class="url-box">
+                <strong>Login:</strong><br>
+                <a href="auth/login.php" target="_blank">http://localhost/Gestion-sena/dashboard_sena/auth/login.php</a>
+            </div>
+            <div class="url-box">
+                <strong>Dashboard:</strong><br>
+                <a href="index.php" target="_blank">http://localhost/Gestion-sena/dashboard_sena/</a>
+            </div>
+        </div>
+
+        <div class="solution" id="solution-box" style="display: none;">
+            <h4>💡 Solución Recomendada</h4>
+            <div id="solution-content"></div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="test.php" class="btn">🧪 Ir a Test PHP</a>
+            <a href="auth/login.php" class="btn">🔐 Ir al Login</a>
+            <a href="SOLUCION_ERROR_404.txt" class="btn" target="_blank">📖 Ver Guía Completa</a>
+        </div>
+    </div>
+
+    <script>
+        async function testServer() {
+            const statusEl = document.getElementById('server-status');
+            const resultEl = document.getElementById('server-result');
+            
+            try {
+                const response = await fetch('http://localhost/', { method: 'HEAD', mode: 'no-cors' });
+                statusEl.innerHTML = '<span class="status success">✓ Servidor Apache funcionando</span>';
+                resultEl.innerHTML = '<p style="color: #155724; margin-top: 10px;">El servidor web está activo y respondiendo.</p>';
+                return true;
+            } catch (error) {
+                statusEl.innerHTML = '<span class="status error">✗ Servidor no responde</span>';
+                resultEl.innerHTML = '<p style="color: #721c24; margin-top: 10px;">Apache no está corriendo. Inicia XAMPP.</p>';
+                showSolution('apache');
+                return false;
+            }
+        }
+
+        async function testPHP() {
+            const statusEl = document.getElementById('php-status');
+            const resultEl = document.getElementById('php-result');
+            
+            try {
+                const response = await fetch('test.php');
+                if (response.ok) {
+                    statusEl.innerHTML = '<span class="status success">✓ PHP funcionando correctamente</span>';
+                    resultEl.innerHTML = '<p style="color: #155724; margin-top: 10px;">PHP está procesando archivos correctamente.</p>';
+                    return true;
+                } else if (response.status === 404) {
+                    statusEl.innerHTML = '<span class="status error">✗ Archivo test.php no encontrado</span>';
+                    resultEl.innerHTML = '<p style="color: #721c24; margin-top: 10px;">El proyecto no está en la ubicación correcta.</p>';
+                    showSolution('location');
+                    return false;
+                }
+            } catch (error) {
+                statusEl.innerHTML = '<span class="status error">✗ Error al acceder a PHP</span>';
+                resultEl.innerHTML = '<p style="color: #721c24; margin-top: 10px;">No se puede acceder a los archivos PHP.</p>';
+                showSolution('php');
+                return false;
+            }
+        }
+
+        async function testLogin() {
+            const statusEl = document.getElementById('login-status');
+            const resultEl = document.getElementById('login-result');
+            
+            try {
+                const response = await fetch('auth/login.php');
+                if (response.ok) {
+                    statusEl.innerHTML = '<span class="status success">✓ Login accesible</span>';
+                    resultEl.innerHTML = '<p style="color: #155724; margin-top: 10px;">Puedes acceder al sistema de login.</p>';
+                    return true;
+                } else if (response.status === 404) {
+                    statusEl.innerHTML = '<span class="status error">✗ Login no encontrado</span>';
+                    resultEl.innerHTML = '<p style="color: #721c24; margin-top: 10px;">El archivo de login no existe o la ruta es incorrecta.</p>';
+                    showSolution('login');
+                    return false;
+                }
+            } catch (error) {
+                statusEl.innerHTML = '<span class="status error">✗ Error al acceder al login</span>';
+                resultEl.innerHTML = '<p style="color: #721c24; margin-top: 10px;">No se puede acceder al sistema de login.</p>';
+                showSolution('login');
+                return false;
+            }
+        }
+
+        function showSolution(type) {
+            const solutionBox = document.getElementById('solution-box');
+            const solutionContent = document.getElementById('solution-content');
+            
+            let solution = '';
+            
+            switch(type) {
+                case 'apache':
+                    solution = `
+                        <ul>
+                            <li>Abre XAMPP Control Panel</li>
+                            <li>Haz clic en "Start" junto a Apache</li>
+                            <li>Espera a que el botón se ponga verde</li>
+                            <li>Recarga esta página</li>
+                        </ul>
+                    `;
+                    break;
+                case 'location':
+                    solution = `
+                        <ul>
+                            <li>Verifica que el proyecto esté en: <code>C:\\xampp\\htdocs\\Gestion-sena\\dashboard_sena\\</code></li>
+                            <li>Si está en otra ubicación, muévelo a la carpeta correcta</li>
+                            <li>Reinicia Apache en XAMPP</li>
+                            <li>Lee el archivo: SOLUCION_ERROR_404.txt</li>
+                        </ul>
+                    `;
+                    break;
+                case 'php':
+                    solution = `
+                        <ul>
+                            <li>Verifica que PHP esté habilitado en Apache</li>
+                            <li>Revisa los logs de Apache en: C:\\xampp\\apache\\logs\\error.log</li>
+                            <li>Reinicia Apache en XAMPP</li>
+                        </ul>
+                    `;
+                    break;
+                case 'login':
+                    solution = `
+                        <ul>
+                            <li>Verifica que la carpeta "auth" exista en el proyecto</li>
+                            <li>Verifica que el archivo "login.php" exista en la carpeta "auth"</li>
+                            <li>Revisa la estructura de carpetas del proyecto</li>
+                        </ul>
+                    `;
+                    break;
+            }
+            
+            solutionContent.innerHTML = solution;
+            solutionBox.style.display = 'block';
+        }
+
+        // Ejecutar pruebas al cargar
+        window.addEventListener('load', async function() {
+            await testServer();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testPHP();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testLogin();
+        });
+    </script>
+</body>
+</html>

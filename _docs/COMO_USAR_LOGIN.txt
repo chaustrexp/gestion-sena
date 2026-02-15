@@ -1,0 +1,102 @@
+═══════════════════════════════════════════════════════════════════
+  🔐 CÓMO USAR EL LOGIN - DASHBOARD SENA
+═══════════════════════════════════════════════════════════════════
+
+✅ PROBLEMA RESUELTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Las contraseñas han sido actualizadas correctamente.
+El login ya está funcionando al 100%.
+
+🔗 ACCEDER AL LOGIN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+URL: http://localhost/dashboard_sena/auth/login.php
+
+🔑 CREDENCIALES CORRECTAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Email:      admin@sena.edu.co
+Contraseña: admin123
+
+📝 PASOS PARA INGRESAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Ir a: http://localhost/dashboard_sena/auth/login.php
+2. Ingresar email: admin@sena.edu.co
+3. Ingresar contraseña: admin123
+4. Click en "Ingresar al Sistema"
+5. ¡Listo! Verás el dashboard con tu nombre en el navbar
+
+✨ QUÉ VERÁS DESPUÉS DE INGRESAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Dashboard principal con estadísticas
+• Sidebar verde SENA a la izquierda
+• Navbar con tu nombre: "👤 Administrador SENA"
+• Tu rol: "Administrador"
+• Botón "Cerrar Sesión" en el navbar
+
+👥 OTROS USUARIOS DISPONIBLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INSTRUCTOR:
+  Email: juan.perez@sena.edu.co
+  Contraseña: admin123
+
+COORDINADOR:
+  Email: maria.garcia@sena.edu.co
+  Contraseña: admin123
+
+🚪 CERRAR SESIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Click en "Cerrar Sesión" en el navbar (arriba a la derecha)
+2. Serás redirigido al login automáticamente
+
+🔒 SEGURIDAD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ Contraseñas encriptadas con bcrypt
+✓ Sesiones PHP seguras
+✓ Todas las páginas protegidas
+✓ No se puede acceder sin login
+
+🎯 FLUJO COMPLETO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Abrir: http://localhost/dashboard_sena/auth/login.php
+2. Ingresar credenciales
+3. Sistema verifica en base de datos
+4. Si es correcto → Crea sesión y redirige al dashboard
+5. Navegar por el sistema (Programas, Fichas, etc.)
+6. Click "Cerrar Sesión" cuando termines
+
+✅ VERIFICACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Se ejecutó un test y el resultado fue:
+✓ Usuario encontrado
+✓ Contraseña correcta
+✓ LOGIN EXITOSO
+
+🎨 DISEÑO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Fondo: Gradiente verde SENA
+• Logo: Círculo blanco con "S"
+• Formulario: Campos con borde verde
+• Botón: Verde con efecto hover
+• Responsive: Funciona en móvil
+
+💡 TIPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Las credenciales están visibles en la página de login
+• Puedes probar con los 3 usuarios diferentes
+• Cada usuario tiene un rol diferente
+• El sistema recuerda tu sesión
+
+🚨 SI TIENES PROBLEMAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Verifica que Apache y MySQL estén corriendo en XAMPP
+2. Verifica la URL: http://localhost/dashboard_sena/auth/login.php
+3. Usa exactamente: admin@sena.edu.co / admin123
+4. Si no funciona, ejecuta:
+   C:\xampp\php\php.exe C:\xampp\htdocs\dashboard_sena\auth\test_login.php
+
+═══════════════════════════════════════════════════════════════════
+¡AHORA SÍ FUNCIONA CORRECTAMENTE! 🎉
+═══════════════════════════════════════════════════════════════════
+
+Prueba ahora con:
+Email: admin@sena.edu.co
+Contraseña: admin123

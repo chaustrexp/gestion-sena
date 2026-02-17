@@ -26,26 +26,22 @@ include __DIR__ . '/../layout/sidebar.php';
         <h2>Crear Nueva Relación Competencia-Programa</h2>
         <form method="POST">
             <div class="form-group">
-                <label>Competencia *</label>
-                <select name="competencia_id" class="form-control" required>
-                    <option value="">Seleccione...</option>
-                    <?php foreach ($competencias as $competencia): ?>
-                        <option value="<?php echo $competencia['id']; ?>"><?php echo $competencia['codigo']; ?> - <?php echo $competencia['nombre']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="form-group">
                 <label>Programa *</label>
-                <select name="programa_id" class="form-control" required>
+                <select name="PROGRAMA_prog_id" class="form-control" required>
                     <option value="">Seleccione...</option>
                     <?php foreach ($programas as $programa): ?>
-                        <option value="<?php echo $programa['id']; ?>"><?php echo $programa['nombre']; ?></option>
+                        <option value="<?php echo $programa['prog_codigo']; ?>"><?php echo htmlspecialchars($programa['prog_denominacion']); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <div class="form-group">
-                <label>Horas *</label>
-                <input type="number" name="horas" class="form-control" required>
+                <label>Competencia *</label>
+                <select name="COMPETENCIA_comp_id" class="form-control" required>
+                    <option value="">Seleccione...</option>
+                    <?php foreach ($competencias as $competencia): ?>
+                        <option value="<?php echo $competencia['comp_id']; ?>"><?php echo htmlspecialchars($competencia['comp_nombre_corto']); ?> - <?php echo htmlspecialchars($competencia['comp_nombre_unidad_competencia']); ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             <div class="btn-group">
                 <button type="submit" class="btn btn-primary">Guardar</button>

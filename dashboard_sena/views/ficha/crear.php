@@ -1,10 +1,18 @@
 <?php
+require_once __DIR__ . '/../../auth/check_auth.php';
 require_once __DIR__ . '/../../model/FichaModel.php';
 require_once __DIR__ . '/../../model/ProgramaModel.php';
+require_once __DIR__ . '/../../model/InstructorModel.php';
+require_once __DIR__ . '/../../model/CoordinacionModel.php';
 
 $model = new FichaModel();
 $programaModel = new ProgramaModel();
+$instructorModel = new InstructorModel();
+$coordinacionModel = new CoordinacionModel();
+
 $programas = $programaModel->getAll();
+$instructores = $instructorModel->getAll();
+$coordinaciones = $coordinacionModel->getAll();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $model->create($_POST);
@@ -19,43 +27,89 @@ include __DIR__ . '/../layout/sidebar.php';
 
 <div class="main-content">
     <div class="form-container">
-        <h2>Crear Nueva Ficha</h2>
+        <div style="margin-bottom: 24px;">
+            <h2 style="font-size: 24px; font-weight: 700; color: #1f2937; margin: 0 0 4px;">Crear Nueva Ficha</h2>
+            <p style="font-size: 14px; color: #6b7280; margin: 0;">Complete los datos de la ficha</p>
+        </div>
+        
         <form method="POST">
             <div class="form-group">
-                <label>Número *</label>
-                <input type="text" name="numero" class="form-control" required>
-            </div>
-            <div class="form-group">
                 <label>Programa *</label>
-                <select name="programa_id" class="form-control" required>
-                    <option value="">Seleccione...</option>
+                <select name="PROGRAMA_prog_id" class="form-control" required>
+                    <option value="">Seleccione un programa...</option>
                     <?php foreach ($programas as $programa): ?>
-                        <option value="<?php echo $programa['id']; ?>"><?php echo $programa['nombre']; ?></option>
+                        <option value="<?php echo $programa['prog_codigo']; ?>">
+                            <?php echo htmlspecialchars($programa['prog_denominacion']); ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
+            
             <div class="form-group">
-                <label>Fecha Inicio *</label>
-                <input type="date" name="fecha_inicio" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Fecha Fin *</label>
-                <input type="date" name="fecha_fin" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Estado *</label>
-                <select name="estado" class="form-control" required>
-                    <option value="Activa">Activa</option>
-                    <option value="Inactiva">Inactiva</option>
-                    <option value="Finalizada">Finalizada</option>
+                <label>Instructor Líder *</label>
+                <select name="INSTRUCTOR_inst_id_lider" class="form-control" required>
+                    <option value="">Seleccione un instructor...</option>
+                    <?php foreach ($instructores as $instructor): ?>
+                        <option value="<?php echo $instructor['inst_id']; ?>">
+                            <?php echo htmlspecialchars($instructor['inst_nombres'] . ' ' . $instructor['inst_apellidos']); ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
+            
+            <div class="form-group">
+                <label>Jornada *</label>
+                <select name="fich_jornada" class="form-control" required>
+                    <option value="">Seleccione una jornada...</option>
+                    <option value="Diurna">Diurna</option>
+                    <option value="Nocturna">Nocturna</option>
+                    <option value="Mixta">Mixta</option>
+                    <option value="Fin de Semana">Fin de Semana</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Coordinación *</label>
+                <select name="COORDINACION_coord_id" class="form-control" required>
+                    <option value="">Seleccione una coordinación...</option>
+                    <?php foreach ($coordinaciones as $coordinacion): ?>
+                        <option value="<?php echo $coordinacion['coord_id']; ?>">
+                            <?php echo htmlspecialchars($coordinacion['coord_descripcion']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Fecha Inicio Lectiva *</label>
+                    <input type="date" name="fich_fecha_ini_lectiva" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Fecha Fin Lectiva *</label>
+                    <input type="date" name="fich_fecha_fin_lectiva" class="form-control" required>
+                </div>
+            </div>
+            
             <div class="btn-group">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <a href="index.php" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">
+                    <i data-lucide="save" style="width: 18px; height: 18px;"></i>
+                    Guardar Ficha
+                </button>
+                <a href="index.php" class="btn btn-secondary">
+                    <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+                    Cancelar
+                </a>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+</script>
 
 <?php include __DIR__ . '/../layout/footer.php'; ?>

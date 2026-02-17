@@ -1,7 +1,7 @@
 <?php
 // Configuración de conexión a base de datos
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'dashboard_sena');
+define('DB_NAME', 'progsena');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 

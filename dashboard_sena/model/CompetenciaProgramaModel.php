@@ -2,68 +2,56 @@
 require_once __DIR__ . '/../conexion.php';
 
 class CompetenciaProgramaModel {
-    private $conn;
+    private $db;
     
     public function __construct() {
-        $this->conn = Database::getInstance()->getConnection();
+        $this->db = Database::getInstance()->getConnection();
     }
     
     public function getAll() {
-        $stmt = $this->conn->query("
-            SELECT cp.*, 
-                   c.nombre as competencia_nombre,
-                   p.nombre as programa_nombre
-            FROM competencia_programa cp
-            LEFT JOIN competencia c ON cp.competencia_id = c.id
-            LEFT JOIN programa p ON cp.programa_id = p.id
-            ORDER BY cp.id DESC
+        $stmt = $this->db->query("
+            SELECT cp.*,
+                   p.prog_denominacion,
+                   c.comp_nombre_corto
+            FROM COMPETxPROGRAMA cp
+            LEFT JOIN PROGRAMA p ON cp.PROGRAMA_prog_id = p.prog_codigo
+            LEFT JOIN COMPETENCIA c ON cp.COMPETENCIA_comp_id = c.comp_id
+            ORDER BY p.prog_denominacion, c.comp_nombre_corto
         ");
         return $stmt->fetchAll();
     }
     
-    public function getById($id) {
-        $stmt = $this->conn->prepare("
-            SELECT cp.*, 
-                   c.nombre as competencia_nombre,
-                   p.nombre as programa_nombre
-            FROM competencia_programa cp
-            LEFT JOIN competencia c ON cp.competencia_id = c.id
-            LEFT JOIN programa p ON cp.programa_id = p.id
-            WHERE cp.id = ?
+    public function getByPrograma($programa_id) {
+        $stmt = $this->db->prepare("
+            SELECT cp.*,
+                   c.comp_nombre_corto,
+                   c.comp_nombre_unidad_competencia,
+                   c.comp_horas
+            FROM COMPETxPROGRAMA cp
+            LEFT JOIN COMPETENCIA c ON cp.COMPETENCIA_comp_id = c.comp_id
+            WHERE cp.PROGRAMA_prog_id = ?
         ");
-        $stmt->execute([$id]);
-        return $stmt->fetch();
+        $stmt->execute([$programa_id]);
+        return $stmt->fetchAll();
     }
     
     public function create($data) {
-        $stmt = $this->conn->prepare("
-            INSERT INTO competencia_programa (competencia_id, programa_id, horas) 
-            VALUES (?, ?, ?)
+        $stmt = $this->db->prepare("
+            INSERT INTO COMPETxPROGRAMA (PROGRAMA_prog_id, COMPETENCIA_comp_id) 
+            VALUES (?, ?)
         ");
         return $stmt->execute([
-            $data['competencia_id'],
-            $data['programa_id'],
-            $data['horas']
+            $data['PROGRAMA_prog_id'],
+            $data['COMPETENCIA_comp_id']
         ]);
     }
     
-    public function update($id, $data) {
-        $stmt = $this->conn->prepare("
-            UPDATE competencia_programa 
-            SET competencia_id = ?, programa_id = ?, horas = ? 
-            WHERE id = ?
+    public function delete($programa_id, $competencia_id) {
+        $stmt = $this->db->prepare("
+            DELETE FROM COMPETxPROGRAMA 
+            WHERE PROGRAMA_prog_id = ? AND COMPETENCIA_comp_id = ?
         ");
-        return $stmt->execute([
-            $data['competencia_id'],
-            $data['programa_id'],
-            $data['horas'],
-            $id
-        ]);
-    }
-    
-    public function delete($id) {
-        $stmt = $this->conn->prepare("DELETE FROM competencia_programa WHERE id = ?");
-        return $stmt->execute([$id]);
+        return $stmt->execute([$programa_id, $competencia_id]);
     }
 }
 ?>

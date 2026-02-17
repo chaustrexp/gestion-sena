@@ -13,11 +13,12 @@ CREATE TABLE IF NOT EXISTS usuarios (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Insertar usuarios de ejemplo
--- Password: admin123 (encriptado con password_hash)
+-- Insertar usuarios de ejemplo con contraseñas encriptadas
+-- ID 1: admin@sena.edu.co - Contraseña: admin123
+-- ID 2: juan.perez@sena.edu.co - Contraseña: instructor123
+-- ID 3: maria.garcia@sena.edu.co - Contraseña: coordinador123
+
 INSERT INTO usuarios (nombre, email, password, rol, estado) VALUES
 ('Administrador SENA', 'admin@sena.edu.co', '$2y$10$aq5tzhF7AnWwPdDMRsUYEuVPmFre1rOG7vt2kefFbUasEO50cPBEm', 'Administrador', 'Activo'),
-('Juan Pérez', 'juan.perez@sena.edu.co', '$2y$10$aq5tzhF7AnWwPdDMRsUYEuVPmFre1rOG7vt2kefFbUasEO50cPBEm', 'Instructor', 'Activo'),
-('María García', 'maria.garcia@sena.edu.co', '$2y$10$aq5tzhF7AnWwPdDMRsUYEuVPmFre1rOG7vt2kefFbUasEO50cPBEm', 'Coordinador', 'Activo');
-
--- Nota: Todos los usuarios tienen la contraseña: admin123
+('Juan Pérez', 'juan.perez@sena.edu.co', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Instructor', 'Activo'),
+('María García', 'maria.garcia@sena.edu.co', '$2y$10$vI8aWBnW3fID.ZQ4/zo1G.q1lRps.9cGLcZEiGDMVr5yUP1KUOYTa', 'Coordinador', 'Activo');

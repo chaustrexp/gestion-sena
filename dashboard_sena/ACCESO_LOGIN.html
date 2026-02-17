@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso al Sistema SENA</title>
+    <meta http-equiv="refresh" content="0; url=auth/login.php">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #39A900;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: #39A900;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #2d8700;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #39A900;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Sistema de Gestión SENA</h1>
+        <p>Redirigiendo al login...</p>
+        <div class="spinner"></div>
+        <p style="font-size: 14px; margin-top: 20px;">
+            Si no eres redirigido automáticamente, haz clic aquí:
+        </p>
+        <a href="auth/login.php" class="btn">Ir al Login</a>
+    </div>
+</body>
+</html>

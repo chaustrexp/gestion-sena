@@ -13,6 +13,6 @@ if (isset($_COOKIE[session_name()])) {
 session_destroy();
 
 // Redirigir al login
-header('Location: /Gestion-sena/auth/login.php');
+header('Location: /Gestion-sena/dashboard_sena/auth/login.php');
 exit;
 ?>

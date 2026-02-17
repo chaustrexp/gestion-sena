@@ -2,69 +2,68 @@
 require_once __DIR__ . '/../conexion.php';
 
 class ProgramaModel {
-    private $conn;
+    private $db;
     
     public function __construct() {
-        $this->conn = Database::getInstance()->getConnection();
+        $this->db = Database::getInstance()->getConnection();
     }
     
     public function getAll() {
-        $stmt = $this->conn->query("
-            SELECT p.*, t.nombre as titulo_nombre 
-            FROM programa p 
-            LEFT JOIN titulo_programa t ON p.titulo_programa_id = t.id 
-            ORDER BY p.id DESC
+        $stmt = $this->db->query("
+            SELECT p.*, tp.titpro_nombre 
+            FROM PROGRAMA p
+            LEFT JOIN TITULO_PROGRAMA tp ON p.TIT_PROGRAMA_titpro_id = tp.titpro_id
+            ORDER BY p.prog_denominacion
         ");
         return $stmt->fetchAll();
     }
     
     public function getById($id) {
-        $stmt = $this->conn->prepare("
-            SELECT p.*, t.nombre as titulo_nombre 
-            FROM programa p 
-            LEFT JOIN titulo_programa t ON p.titulo_programa_id = t.id 
-            WHERE p.id = ?
+        $stmt = $this->db->prepare("
+            SELECT p.*, tp.titpro_nombre 
+            FROM PROGRAMA p
+            LEFT JOIN TITULO_PROGRAMA tp ON p.TIT_PROGRAMA_titpro_id = tp.titpro_id
+            WHERE p.prog_codigo = ?
         ");
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
     
     public function create($data) {
-        $stmt = $this->conn->prepare("
-            INSERT INTO programa (nombre, codigo, duracion_meses, titulo_programa_id) 
-            VALUES (?, ?, ?, ?)
+        $stmt = $this->db->prepare("
+            INSERT INTO PROGRAMA (prog_denominacion, TIT_PROGRAMA_titpro_id, prog_tipo) 
+            VALUES (?, ?, ?)
         ");
         return $stmt->execute([
-            $data['nombre'],
-            $data['codigo'],
-            $data['duracion_meses'],
-            $data['titulo_programa_id']
+            $data['prog_denominacion'],
+            $data['TIT_PROGRAMA_titpro_id'],
+            $data['prog_tipo'] ?? null
         ]);
     }
     
     public function update($id, $data) {
-        $stmt = $this->conn->prepare("
-            UPDATE programa 
-            SET nombre = ?, codigo = ?, duracion_meses = ?, titulo_programa_id = ? 
-            WHERE id = ?
+        $stmt = $this->db->prepare("
+            UPDATE PROGRAMA 
+            SET prog_denominacion = ?, TIT_PROGRAMA_titpro_id = ?, prog_tipo = ?
+            WHERE prog_codigo = ?
         ");
         return $stmt->execute([
-            $data['nombre'],
-            $data['codigo'],
-            $data['duracion_meses'],
-            $data['titulo_programa_id'],
+            $data['prog_denominacion'],
+            $data['TIT_PROGRAMA_titpro_id'],
+            $data['prog_tipo'],
             $id
         ]);
     }
     
     public function delete($id) {
-        $stmt = $this->conn->prepare("DELETE FROM programa WHERE id = ?");
+        $stmt = $this->db->prepare("DELETE FROM PROGRAMA WHERE prog_codigo = ?");
         return $stmt->execute([$id]);
     }
     
     public function count() {
-        $stmt = $this->conn->query("SELECT COUNT(*) as total FROM programa");
-        return $stmt->fetch()['total'];
+        $stmt = $this->db->query("SELECT COUNT(*) as total FROM PROGRAMA");
+        $result = $stmt->fetch();
+        return $result['total'];
     }
 }
 ?>

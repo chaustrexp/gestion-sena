@@ -2,71 +2,84 @@
 require_once __DIR__ . '/../conexion.php';
 
 class FichaModel {
-    private $conn;
+    private $db;
     
     public function __construct() {
-        $this->conn = Database::getInstance()->getConnection();
+        $this->db = Database::getInstance()->getConnection();
     }
     
     public function getAll() {
-        $stmt = $this->conn->query("
-            SELECT f.*, p.nombre as programa_nombre 
-            FROM ficha f 
-            LEFT JOIN programa p ON f.programa_id = p.id 
-            ORDER BY f.id DESC
+        $stmt = $this->db->query("
+            SELECT f.*, 
+                   p.prog_denominacion,
+                   CONCAT(i.inst_nombres, ' ', i.inst_apellidos) as instructor_lider,
+                   c.coord_descripcion
+            FROM FICHA f
+            LEFT JOIN PROGRAMA p ON f.PROGRAMA_prog_id = p.prog_codigo
+            LEFT JOIN INSTRUCTOR i ON f.INSTRUCTOR_inst_id_lider = i.inst_id
+            LEFT JOIN COORDINACION c ON f.COORDINACION_coord_id = c.coord_id
+            ORDER BY f.fich_id DESC
         ");
         return $stmt->fetchAll();
     }
     
     public function getById($id) {
-        $stmt = $this->conn->prepare("
-            SELECT f.*, p.nombre as programa_nombre 
-            FROM ficha f 
-            LEFT JOIN programa p ON f.programa_id = p.id 
-            WHERE f.id = ?
+        $stmt = $this->db->prepare("
+            SELECT f.*, 
+                   p.prog_denominacion,
+                   CONCAT(i.inst_nombres, ' ', i.inst_apellidos) as instructor_lider,
+                   c.coord_descripcion
+            FROM FICHA f
+            LEFT JOIN PROGRAMA p ON f.PROGRAMA_prog_id = p.prog_codigo
+            LEFT JOIN INSTRUCTOR i ON f.INSTRUCTOR_inst_id_lider = i.inst_id
+            LEFT JOIN COORDINACION c ON f.COORDINACION_coord_id = c.coord_id
+            WHERE f.fich_id = ?
         ");
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
     
     public function create($data) {
-        $stmt = $this->conn->prepare("
-            INSERT INTO ficha (numero, programa_id, fecha_inicio, fecha_fin, estado) 
-            VALUES (?, ?, ?, ?, ?)
+        $stmt = $this->db->prepare("
+            INSERT INTO FICHA (PROGRAMA_prog_id, INSTRUCTOR_inst_id_lider, fich_jornada, COORDINACION_coord_id, fich_fecha_ini_lectiva, fich_fecha_fin_lectiva) 
+            VALUES (?, ?, ?, ?, ?, ?)
         ");
         return $stmt->execute([
-            $data['numero'],
-            $data['programa_id'],
-            $data['fecha_inicio'],
-            $data['fecha_fin'],
-            $data['estado']
+            $data['PROGRAMA_prog_id'],
+            $data['INSTRUCTOR_inst_id_lider'],
+            $data['fich_jornada'],
+            $data['COORDINACION_coord_id'],
+            $data['fich_fecha_ini_lectiva'],
+            $data['fich_fecha_fin_lectiva']
         ]);
     }
     
     public function update($id, $data) {
-        $stmt = $this->conn->prepare("
-            UPDATE ficha 
-            SET numero = ?, programa_id = ?, fecha_inicio = ?, fecha_fin = ?, estado = ? 
-            WHERE id = ?
+        $stmt = $this->db->prepare("
+            UPDATE FICHA 
+            SET PROGRAMA_prog_id = ?, INSTRUCTOR_inst_id_lider = ?, fich_jornada = ?, COORDINACION_coord_id = ?, fich_fecha_ini_lectiva = ?, fich_fecha_fin_lectiva = ?
+            WHERE fich_id = ?
         ");
         return $stmt->execute([
-            $data['numero'],
-            $data['programa_id'],
-            $data['fecha_inicio'],
-            $data['fecha_fin'],
-            $data['estado'],
+            $data['PROGRAMA_prog_id'],
+            $data['INSTRUCTOR_inst_id_lider'],
+            $data['fich_jornada'],
+            $data['COORDINACION_coord_id'],
+            $data['fich_fecha_ini_lectiva'],
+            $data['fich_fecha_fin_lectiva'],
             $id
         ]);
     }
     
     public function delete($id) {
-        $stmt = $this->conn->prepare("DELETE FROM ficha WHERE id = ?");
+        $stmt = $this->db->prepare("DELETE FROM FICHA WHERE fich_id = ?");
         return $stmt->execute([$id]);
     }
     
     public function count() {
-        $stmt = $this->conn->query("SELECT COUNT(*) as total FROM ficha");
-        return $stmt->fetch()['total'];
+        $stmt = $this->db->query("SELECT COUNT(*) as total FROM FICHA");
+        $result = $stmt->fetch();
+        return $result['total'];
     }
 }
 ?>

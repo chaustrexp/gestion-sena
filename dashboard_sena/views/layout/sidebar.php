@@ -3,7 +3,10 @@
     <div class="sidebar-header">
         <div class="logo-wrapper">
             <div class="logo-icon">
-                <img src="/Gestion-sena/assets/images/sena-logo.png" alt="Logo SENA">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="24" cy="24" r="24" fill="#39A900"/>
+                    <text x="24" y="34" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">S</text>
+                </svg>
             </div>
             <div class="logo-text">
                 <h2>SENA</h2>
@@ -76,6 +79,13 @@
             </li>
 
             <li class="nav-item">
+                <a href="/Gestion-sena/dashboard_sena/views/instru_competencia/index.php" class="nav-link">
+                    <i class="nav-icon" data-lucide="award"></i>
+                    <span class="nav-text">Competencias Instructor</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="/Gestion-sena/dashboard_sena/views/ambiente/index.php" class="nav-link">
                     <i class="nav-icon" data-lucide="home"></i>
                     <span class="nav-text">Ambientes</span>
@@ -124,15 +134,15 @@
         </ul>
     </nav>
 
-    <!-- Footer del Sidebar -->
+    <!-- Footer del Sidebar con Perfil de Usuario -->
     <div class="sidebar-footer">
-        <div class="user-profile">
-            <div class="user-avatar">
+        <div class="user-profile-sidebar">
+            <div class="user-avatar-sidebar">
                 <img src="/Gestion-sena/assets/images/foto-perfil.jpg" alt="Foto de perfil">
             </div>
-            <div class="user-info">
-                <span class="user-name"><?php echo $_SESSION['usuario_nombre']; ?></span>
-                <span class="user-role"><?php echo $_SESSION['usuario_rol']; ?></span>
+            <div class="user-info-sidebar">
+                <span class="user-name-sidebar"><?php echo $_SESSION['usuario_nombre']; ?></span>
+                <span class="user-role-sidebar"><?php echo $_SESSION['usuario_rol']; ?></span>
             </div>
         </div>
     </div>

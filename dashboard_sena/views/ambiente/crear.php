@@ -22,27 +22,20 @@ include __DIR__ . '/../layout/sidebar.php';
         <h2>Crear Nuevo Ambiente</h2>
         <form method="POST">
             <div class="form-group">
-                <label>Código *</label>
-                <input type="text" name="codigo" class="form-control" required>
+                <label>Código del Ambiente * (Ej: A101, B205)</label>
+                <input type="text" name="amb_id" class="form-control" maxlength="5" placeholder="A101" required>
+                <small style="color: #6b7280;">Máximo 5 caracteres</small>
             </div>
             <div class="form-group">
-                <label>Nombre *</label>
-                <input type="text" name="nombre" class="form-control" required>
+                <label>Nombre del Ambiente *</label>
+                <input type="text" name="amb_nombre" class="form-control" maxlength="45" required>
             </div>
             <div class="form-group">
-                <label>Capacidad *</label>
-                <input type="number" name="capacidad" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Tipo *</label>
-                <input type="text" name="tipo" class="form-control" placeholder="Ej: Aula Teórica, Laboratorio" required>
-            </div>
-            <div class="form-group">
-                <label>Sede</label>
-                <select name="sede_id" class="form-control">
+                <label>Sede *</label>
+                <select name="SEDE_sede_id" class="form-control" required>
                     <option value="">Seleccione...</option>
                     <?php foreach ($sedes as $sede): ?>
-                        <option value="<?php echo $sede['id']; ?>"><?php echo $sede['nombre']; ?></option>
+                        <option value="<?php echo $sede['sede_id']; ?>"><?php echo htmlspecialchars($sede['sede_nombre']); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

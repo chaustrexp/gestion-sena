@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instrucciones de Inicio - Sistema SENA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #39A900 0%, #2d8700 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 50px 40px;
+        }
+        
+        .step {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 6px solid #39A900;
+            transition: all 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(57, 169, 0, 0.15);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: #39A900;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .step h2 {
+            color: #1f2937;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .step p {
+            color: #6b7280;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background: #39A900;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 10px 10px 0 0;
+            font-size: 15px;
+        }
+        
+        .btn:hover {
+            background: #2d8700;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(57, 169, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .credentials {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .credentials h3 {
+            color: #1f2937;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .credential-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .credential-item:last-child {
+            border-bottom: none;
+        }
+        
+        .credential-label {
+            color: #6b7280;
+            font-weight: 600;
+        }
+        
+        .credential-value {
+            color: #39A900;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            background: #f0fdf4;
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+        
+        .alert {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .alert-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .alert p {
+            color: #1e40af;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .success-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .success-box p {
+            color: #065f46;
+            margin: 0;
+        }
+        
+        .footer {
+            background: #f9fafb;
+            padding: 40px;
+            text-align: center;
+            border-top: 2px solid #e5e7eb;
+        }
+        
+        .footer h3 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .quick-link {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+        
+        .quick-link:hover {
+            border-color: #39A900;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .quick-link-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .quick-link h4 {
+            color: #1f2937;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .quick-link p {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .step {
+                padding: 20px;
+            }
+            
+            .credential-item {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Sistema de Gestión SENA</h1>
+            <p>Instrucciones de Inicio - Sistema de Roles</p>
+        </div>
+        
+        <div class="content">
+            <div class="alert">
+                <div class="alert-icon">ℹ️</div>
+                <p><strong>Bienvenido al Sistema de Gestión SENA</strong><br>
+                Siga estos pasos para configurar y comenzar a usar el sistema con el nuevo sistema de roles (Administrador y Coordinador).</p>
+            </div>
+            
+            <!-- Paso 1 -->
+            <div class="step">
+                <div class="step-number">1</div>
+                <h2>Verificar el Sistema</h2>
+                <p>Primero, verifique que todo esté configurado correctamente. Este script revisa la base de datos, tablas y archivos necesarios.</p>
+                <a href="verificar_roles.php" class="btn">🔍 Verificar Sistema</a>
+            </div>
+            
+            <!-- Paso 2 -->
+            <div class="step">
+                <div class="step-number">2</div>
+                <h2>Crear Usuarios de Prueba</h2>
+                <p>Si es la primera vez que usa el sistema, necesita crear los usuarios de prueba para poder iniciar sesión.</p>
+                
+                <h3 style="color: #1f2937; margin: 20px 0 10px;">Administrador:</h3>
+                <a href="agregar_tabla_admin.php" class="btn">👨‍💼 Crear Administrador</a>
+                
+                <h3 style="color: #1f2937; margin: 20px 0 10px;">Coordinador (Opcional):</h3>
+                <a href="crear_coordinador_prueba.php" class="btn btn-secondary">👥 Crear Coordinador</a>
+            </div>
+            
+            <!-- Paso 3 -->
+            <div class="step">
+                <div class="step-number">3</div>
+                <h2>Iniciar Sesión</h2>
+                <p>Una vez creados los usuarios, puede iniciar sesión en el sistema seleccionando su rol.</p>
+                
+                <div class="credentials">
+                    <h3>🔑 Credenciales de Administrador</h3>
+                    <div class="credential-item">
+                        <span class="credential-label">Email:</span>
+                        <span class="credential-value">admin@sena.edu.co</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label">Password:</span>
+                        <span class="credential-value">password</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label">Rol:</span>
+                        <span class="credential-value">Administrador</span>
+                    </div>
+                </div>
+                
+                <div class="credentials">
+                    <h3>🔑 Credenciales de Coordinador</h3>
+                    <div class="credential-item">
+                        <span class="credential-label">Email:</span>
+                        <span class="credential-value">coordinador@sena.edu.co</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label">Password:</span>
+                        <span class="credential-value">password</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label">Rol:</span>
+                        <span class="credential-value">Coordinador</span>
+                    </div>
+                </div>
+                
+                <a href="auth/login.php" class="btn">🔐 Ir al Login</a>
+            </div>
+            
+            <!-- Paso 4 -->
+            <div class="step">
+                <div class="step-number">4</div>
+                <h2>Acceder al Dashboard</h2>
+                <p>Después de iniciar sesión, será redirigido automáticamente al dashboard principal donde podrá gestionar todos los módulos del sistema.</p>
+                <a href="index.php" class="btn">📊 Ir al Dashboard</a>
+            </div>
+            
+            <div class="success-box">
+                <p><strong>✅ ¡Listo!</strong> Ya puede comenzar a usar el Sistema de Gestión SENA con el nuevo sistema de roles.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <h3>📚 Enlaces Útiles</h3>
+            
+            <div class="quick-links">
+                <div class="quick-link">
+                    <div class="quick-link-icon">🔍</div>
+                    <h4>Verificar Sistema</h4>
+                    <p>Diagnóstico completo del sistema de roles</p>
+                    <a href="verificar_roles.php" class="btn btn-secondary">Abrir</a>
+                </div>
+                
+                <div class="quick-link">
+                    <div class="quick-link-icon">🔐</div>
+                    <h4>Login</h4>
+                    <p>Iniciar sesión en el sistema</p>
+                    <a href="auth/login.php" class="btn btn-secondary">Abrir</a>
+                </div>
+                
+                <div class="quick-link">
+                    <div class="quick-link-icon">📊</div>
+                    <h4>Dashboard</h4>
+                    <p>Panel principal del sistema</p>
+                    <a href="index.php" class="btn btn-secondary">Abrir</a>
+                </div>
+                
+                <div class="quick-link">
+                    <div class="quick-link-icon">🔧</div>
+                    <h4>Migrar BD</h4>
+                    <p>Crear base de datos completa</p>
+                    <a href="migrar_bd.php" class="btn btn-secondary">Abrir</a>
+                </div>
+                
+                <div class="quick-link">
+                    <div class="quick-link-icon">📝</div>
+                    <h4>Test Conexión</h4>
+                    <p>Probar conexión a la base de datos</p>
+                    <a href="test_conexion.php" class="btn btn-secondary">Abrir</a>
+                </div>
+                
+                <div class="quick-link">
+                    <div class="quick-link-icon">📖</div>
+                    <h4>Documentación</h4>
+                    <p>Guías y manuales del sistema</p>
+                    <a href="_docs/GUIA_RAPIDA_ROLES.md" class="btn btn-secondary">Ver</a>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid #e5e7eb;">
+                <p style="color: #6b7280; font-size: 14px;">
+                    Sistema de Gestión SENA - Versión 1.0<br>
+                    Desarrollado para el Servicio Nacional de Aprendizaje
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

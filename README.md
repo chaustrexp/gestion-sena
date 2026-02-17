@@ -10,14 +10,14 @@ Sistema completo de gestión académica que permite administrar programas de for
 
 ## ✨ Características
 
-- 🔐 **Sistema de autenticación** con roles de usuario
+- 🔐 **Sistema de autenticación** con dos roles (Administrador y Coordinador)
 - 📊 **Dashboard interactivo** con estadísticas en tiempo real
 - 👥 **Gestión de instructores** y perfiles
 - 📚 **Administración de programas** de formación
 - 📝 **Control de fichas** y grupos
 - 🏢 **Gestión de ambientes** y espacios
-- 📅 **Asignaciones** de instructores a fichas
-- 🎯 **Competencias** y títulos de programas
+- 📅 **Calendario de asignaciones** con eventos recurrentes
+- 🎯 **Competencias** de instructores y programas
 - 🏛️ **Centros de formación** y sedes
 - 📱 **Diseño responsive** para todos los dispositivos
 
@@ -63,9 +63,15 @@ Copiar la carpeta del proyecto a `C:\xampp\htdocs\Gestion-sena`
 
 ### 3. Configurar la base de datos
 
+**Opción A - Automática (Recomendada):**
+```
+http://localhost/Gestion-sena/dashboard_sena/migrar_bd.php
+```
+
+**Opción B - Manual:**
 1. Abrir phpMyAdmin: `http://localhost/phpmyadmin`
-2. Crear base de datos: `dashboard_sena`
-3. Importar: `_database/database.sql`
+2. Crear base de datos: `progsena`
+3. Importar: `dashboard_sena/_database/estructura_completa_ProgSENA.sql`
 
 ### 4. Configurar conexión
 
@@ -73,7 +79,7 @@ Editar `dashboard_sena/conexion.php`:
 
 ```php
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'dashboard_sena');
+define('DB_NAME', 'progsena');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 ```
@@ -84,14 +90,34 @@ Ejecutar `_scripts/ABRIR_DASHBOARD.bat` o iniciar Apache y MySQL desde XAMPP.
 
 ### 6. Acceder al sistema
 
-Abrir navegador: `http://localhost/Gestion-sena/dashboard_sena/`
+**Verificar instalación:**
+```
+http://localhost/Gestion-sena/dashboard_sena/verificar_roles.php
+```
+
+**Acceder al login:**
+```
+http://localhost/Gestion-sena/dashboard_sena/auth/login.php
+```
 
 ## 👤 Credenciales de prueba
 
+### Administrador
 ```
 Email: admin@sena.edu.co
-Contraseña: admin123
+Contraseña: password
+Rol: Administrador
 ```
+
+### Coordinador (opcional)
+```
+Email: coordinador@sena.edu.co
+Contraseña: password
+Rol: Coordinador
+```
+
+> **Nota:** Para crear el coordinador de prueba, ejecutar:
+> `http://localhost/Gestion-sena/dashboard_sena/crear_coordinador_prueba.php`
 
 ## 📁 Estructura del proyecto
 
@@ -129,17 +155,22 @@ Gestion-sena/
 - **Competencias**: Administración de competencias
 - **Competencia-Programa**: Relación entre competencias y programas
 - **Título Programa**: Títulos otorgados
+- **Competencias Instructor**: Competencias asignadas a instructores
 
 ### Recursos
 - **Instructores**: Gestión de personal docente
 - **Ambientes**: Control de espacios físicos
-- **Asignaciones**: Asignación de instructores a fichas
+- **Asignaciones**: Calendario de asignaciones con eventos recurrentes
 - **Detalle Asignación**: Información detallada de asignaciones
 
 ### Infraestructura
 - **Centro Formación**: Gestión de centros
 - **Sedes**: Administración de sedes
 - **Coordinación**: Control de coordinaciones
+
+### Administración
+- **Administradores**: Gestión de usuarios administradores
+- **Roles**: Sistema de permisos por rol
 
 ## 🎯 Funcionalidades principales
 
@@ -159,9 +190,11 @@ Cada módulo incluye:
 
 ### Sistema de autenticación
 - Login seguro con contraseñas hasheadas
-- Sesiones de usuario
+- Dos roles: Administrador y Coordinador
+- Sesiones de usuario con información de rol
 - Protección de rutas
 - Logout seguro
+- Registro de último acceso
 
 ## 🔒 Seguridad
 
@@ -201,9 +234,27 @@ php _utils/REPARAR_UTF8_DEFINITIVO.php
 
 ## 📝 Scripts útiles
 
+### Configuración
+- `dashboard_sena/migrar_bd.php` - Crea la base de datos completa
+- `dashboard_sena/verificar_y_crear_bd.php` - Verifica y crea BD con un clic
+- `dashboard_sena/agregar_tabla_admin.php` - Crea tabla ADMINISTRADOR
+- `dashboard_sena/crear_coordinador_prueba.php` - Crea coordinador de prueba
+
+### Verificación
+- `dashboard_sena/verificar_roles.php` - Diagnóstico del sistema de roles
+- `dashboard_sena/test_conexion.php` - Prueba conexión a BD
+- `dashboard_sena/test_insertar_datos.php` - Inserta datos de prueba
+
+### Ejecución
 - `_scripts/ABRIR_DASHBOARD.bat` - Inicia el dashboard
 - `_scripts/SETUP_DB.bat` - Configura la base de datos
-- `_scripts/crear_vistas_restantes.bat` - Crea vistas SQL
+
+## 📚 Documentación
+
+- `dashboard_sena/_docs/SISTEMA_ROLES.md` - Documentación completa del sistema de roles
+- `dashboard_sena/_docs/GUIA_RAPIDA_ROLES.md` - Guía rápida de inicio
+- `dashboard_sena/_docs/MIGRACION_NUEVA_BD.md` - Guía de migración de BD
+- `dashboard_sena/_docs/RESUMEN_ADAPTACION.md` - Resumen de adaptaciones
 
 ## 🤝 Contribuir
 

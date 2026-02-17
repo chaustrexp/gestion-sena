@@ -2,100 +2,138 @@
 require_once __DIR__ . '/../conexion.php';
 
 class AsignacionModel {
-    private $conn;
+    private $db;
     
     public function __construct() {
-        $this->conn = Database::getInstance()->getConnection();
+        $this->db = Database::getInstance()->getConnection();
     }
     
     public function getAll() {
-        $stmt = $this->conn->query("
-            SELECT a.*, 
-                   f.numero as ficha_numero,
-                   i.nombre as instructor_nombre,
-                   am.nombre as ambiente_nombre,
-                   c.nombre as competencia_nombre
-            FROM asignacion a
-            LEFT JOIN ficha f ON a.ficha_id = f.id
-            LEFT JOIN instructor i ON a.instructor_id = i.id
-            LEFT JOIN ambiente am ON a.ambiente_id = am.id
-            LEFT JOIN competencia c ON a.competencia_id = c.id
-            ORDER BY a.id DESC
+        $stmt = $this->db->query("
+            SELECT a.*,
+                   a.ASIG_ID as asig_id,
+                   f.fich_id as ficha_numero,
+                   CONCAT(i.inst_nombres, ' ', i.inst_apellidos) as instructor_nombre,
+                   amb.amb_nombre as ambiente_nombre,
+                   c.comp_nombre_corto as competencia_nombre,
+                   DATE(a.asig_fecha_ini) as asig_fecha_inicio,
+                   DATE(a.asig_fecha_fin) as asig_fecha_fin,
+                   DATE(a.asig_fecha_ini) as fecha_inicio,
+                   DATE(a.asig_fecha_fin) as fecha_fin
+            FROM ASIGNACION a
+            LEFT JOIN FICHA f ON a.FICHA_fich_id = f.fich_id
+            LEFT JOIN INSTRUCTOR i ON a.INSTRUCTOR_inst_id = i.inst_id
+            LEFT JOIN AMBIENTE amb ON a.AMBIENTE_amb_id = amb.amb_id
+            LEFT JOIN COMPETENCIA c ON a.COMPETENCIA_comp_id = c.comp_id
+            ORDER BY a.asig_fecha_ini DESC
         ");
         return $stmt->fetchAll();
     }
     
     public function getById($id) {
-        $stmt = $this->conn->prepare("
-            SELECT a.*, 
-                   f.numero as ficha_numero,
-                   i.nombre as instructor_nombre,
-                   am.nombre as ambiente_nombre,
-                   c.nombre as competencia_nombre
-            FROM asignacion a
-            LEFT JOIN ficha f ON a.ficha_id = f.id
-            LEFT JOIN instructor i ON a.instructor_id = i.id
-            LEFT JOIN ambiente am ON a.ambiente_id = am.id
-            LEFT JOIN competencia c ON a.competencia_id = c.id
-            WHERE a.id = ?
+        $stmt = $this->db->prepare("
+            SELECT a.*,
+                   a.ASIG_ID as asig_id,
+                   f.fich_id as ficha_numero,
+                   CONCAT(i.inst_nombres, ' ', i.inst_apellidos) as instructor_nombre,
+                   amb.amb_nombre as ambiente_nombre,
+                   c.comp_nombre_corto as competencia_nombre,
+                   DATE(a.asig_fecha_ini) as asig_fecha_inicio,
+                   DATE(a.asig_fecha_fin) as asig_fecha_fin,
+                   DATE(a.asig_fecha_ini) as fecha_inicio,
+                   DATE(a.asig_fecha_fin) as fecha_fin
+            FROM ASIGNACION a
+            LEFT JOIN FICHA f ON a.FICHA_fich_id = f.fich_id
+            LEFT JOIN INSTRUCTOR i ON a.INSTRUCTOR_inst_id = i.inst_id
+            LEFT JOIN AMBIENTE amb ON a.AMBIENTE_amb_id = amb.amb_id
+            LEFT JOIN COMPETENCIA c ON a.COMPETENCIA_comp_id = c.comp_id
+            WHERE a.ASIG_ID = ?
         ");
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
     
     public function create($data) {
-        $stmt = $this->conn->prepare("
-            INSERT INTO asignacion (ficha_id, instructor_id, ambiente_id, competencia_id, fecha_inicio, fecha_fin) 
+        $stmt = $this->db->prepare("
+            INSERT INTO ASIGNACION (INSTRUCTOR_inst_id, asig_fecha_ini, asig_fecha_fin, FICHA_fich_id, AMBIENTE_amb_id, COMPETENCIA_comp_id) 
             VALUES (?, ?, ?, ?, ?, ?)
         ");
+        
+        // Obtener fechas y horas
+        $fecha_inicio = $data['fecha_inicio'] ?? $data['asig_fecha_inicio'] ?? date('Y-m-d');
+        $fecha_fin = $data['fecha_fin'] ?? $data['asig_fecha_fin'] ?? $fecha_inicio;
+        $hora_inicio = $data['hora_inicio'] ?? '06:00';
+        $hora_fin = $data['hora_fin'] ?? '22:00';
+        
+        // Combinar fecha y hora en formato DATETIME
+        $fecha_ini = $fecha_inicio . ' ' . $hora_inicio . ':00';
+        $fecha_fin_dt = $fecha_fin . ' ' . $hora_fin . ':00';
+        
         return $stmt->execute([
-            $data['ficha_id'],
-            $data['instructor_id'],
-            $data['ambiente_id'],
-            $data['competencia_id'],
-            $data['fecha_inicio'],
-            $data['fecha_fin']
+            $data['instructor_id'] ?? $data['INSTRUCTOR_inst_id'],
+            $fecha_ini,
+            $fecha_fin_dt,
+            $data['ficha_id'] ?? $data['FICHA_fich_id'],
+            $data['ambiente_id'] ?? $data['AMBIENTE_amb_id'] ?? null,
+            $data['competencia_id'] ?? $data['COMPETENCIA_comp_id'] ?? null
         ]);
     }
     
     public function update($id, $data) {
-        $stmt = $this->conn->prepare("
-            UPDATE asignacion 
-            SET ficha_id = ?, instructor_id = ?, ambiente_id = ?, competencia_id = ?, fecha_inicio = ?, fecha_fin = ? 
-            WHERE id = ?
+        $stmt = $this->db->prepare("
+            UPDATE ASIGNACION 
+            SET INSTRUCTOR_inst_id = ?, asig_fecha_ini = ?, asig_fecha_fin = ?, FICHA_fich_id = ?, AMBIENTE_amb_id = ?, COMPETENCIA_comp_id = ?
+            WHERE ASIG_ID = ?
         ");
+        
+        // Obtener fechas y horas
+        $fecha_inicio = $data['fecha_inicio'] ?? $data['asig_fecha_inicio'] ?? date('Y-m-d');
+        $fecha_fin = $data['fecha_fin'] ?? $data['asig_fecha_fin'] ?? $fecha_inicio;
+        $hora_inicio = $data['hora_inicio'] ?? '06:00';
+        $hora_fin = $data['hora_fin'] ?? '22:00';
+        
+        // Combinar fecha y hora en formato DATETIME
+        $fecha_ini = $fecha_inicio . ' ' . $hora_inicio . ':00';
+        $fecha_fin_dt = $fecha_fin . ' ' . $hora_fin . ':00';
+        
         return $stmt->execute([
-            $data['ficha_id'],
-            $data['instructor_id'],
-            $data['ambiente_id'],
-            $data['competencia_id'],
-            $data['fecha_inicio'],
-            $data['fecha_fin'],
+            $data['instructor_id'] ?? $data['INSTRUCTOR_inst_id'],
+            $fecha_ini,
+            $fecha_fin_dt,
+            $data['ficha_id'] ?? $data['FICHA_fich_id'],
+            $data['ambiente_id'] ?? $data['AMBIENTE_amb_id'] ?? null,
+            $data['competencia_id'] ?? $data['COMPETENCIA_comp_id'] ?? null,
             $id
         ]);
     }
     
     public function delete($id) {
-        $stmt = $this->conn->prepare("DELETE FROM asignacion WHERE id = ?");
+        $stmt = $this->db->prepare("DELETE FROM ASIGNACION WHERE ASIG_ID = ?");
         return $stmt->execute([$id]);
     }
     
     public function count() {
-        $stmt = $this->conn->query("SELECT COUNT(*) as total FROM asignacion");
-        return $stmt->fetch()['total'];
+        $stmt = $this->db->query("SELECT COUNT(*) as total FROM ASIGNACION");
+        $result = $stmt->fetch();
+        return $result['total'];
     }
     
     public function getRecent($limit = 5) {
-        $stmt = $this->conn->prepare("
-            SELECT a.*, 
-                   f.numero as ficha_numero,
-                   i.nombre as instructor_nombre,
-                   am.nombre as ambiente_nombre
-            FROM asignacion a
-            LEFT JOIN ficha f ON a.ficha_id = f.id
-            LEFT JOIN instructor i ON a.instructor_id = i.id
-            LEFT JOIN ambiente am ON a.ambiente_id = am.id
-            ORDER BY a.id DESC
+        $stmt = $this->db->prepare("
+            SELECT a.*,
+                   a.ASIG_ID as asig_id,
+                   f.fich_id as ficha_numero,
+                   CONCAT(i.inst_nombres, ' ', i.inst_apellidos) as instructor_nombre,
+                   amb.amb_nombre as ambiente_nombre,
+                   c.comp_nombre_corto as competencia_nombre,
+                   DATE(a.asig_fecha_ini) as fecha_inicio,
+                   DATE(a.asig_fecha_fin) as fecha_fin
+            FROM ASIGNACION a
+            LEFT JOIN FICHA f ON a.FICHA_fich_id = f.fich_id
+            LEFT JOIN INSTRUCTOR i ON a.INSTRUCTOR_inst_id = i.inst_id
+            LEFT JOIN AMBIENTE amb ON a.AMBIENTE_amb_id = amb.amb_id
+            LEFT JOIN COMPETENCIA c ON a.COMPETENCIA_comp_id = c.comp_id
+            ORDER BY a.asig_fecha_ini DESC
             LIMIT ?
         ");
         $stmt->execute([$limit]);

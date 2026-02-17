@@ -2,53 +2,40 @@
 require_once __DIR__ . '/../conexion.php';
 
 class CentroFormacionModel {
-    private $conn;
+    private $db;
     
     public function __construct() {
-        $this->conn = Database::getInstance()->getConnection();
+        $this->db = Database::getInstance()->getConnection();
     }
     
     public function getAll() {
-        $stmt = $this->conn->query("SELECT * FROM centro_formacion ORDER BY id DESC");
+        $stmt = $this->db->query("SELECT * FROM CENTRO_FORMACION ORDER BY cent_nombre");
         return $stmt->fetchAll();
     }
     
     public function getById($id) {
-        $stmt = $this->conn->prepare("SELECT * FROM centro_formacion WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT * FROM CENTRO_FORMACION WHERE cent_id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
     
     public function create($data) {
-        $stmt = $this->conn->prepare("
-            INSERT INTO centro_formacion (nombre, codigo, direccion, telefono) 
-            VALUES (?, ?, ?, ?)
-        ");
+        $stmt = $this->db->prepare("INSERT INTO CENTRO_FORMACION (cent_nombre) VALUES (?)");
         return $stmt->execute([
-            $data['nombre'],
-            $data['codigo'],
-            $data['direccion'],
-            $data['telefono']
+            $data['cent_nombre']
         ]);
     }
     
     public function update($id, $data) {
-        $stmt = $this->conn->prepare("
-            UPDATE centro_formacion 
-            SET nombre = ?, codigo = ?, direccion = ?, telefono = ? 
-            WHERE id = ?
-        ");
+        $stmt = $this->db->prepare("UPDATE CENTRO_FORMACION SET cent_nombre = ? WHERE cent_id = ?");
         return $stmt->execute([
-            $data['nombre'],
-            $data['codigo'],
-            $data['direccion'],
-            $data['telefono'],
+            $data['cent_nombre'],
             $id
         ]);
     }
     
     public function delete($id) {
-        $stmt = $this->conn->prepare("DELETE FROM centro_formacion WHERE id = ?");
+        $stmt = $this->db->prepare("DELETE FROM CENTRO_FORMACION WHERE cent_id = ?");
         return $stmt->execute([$id]);
     }
 }

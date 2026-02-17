@@ -3,7 +3,7 @@ session_start();
 
 // Si ya está logueado, redirigir al dashboard
 if (isset($_SESSION['usuario_id'])) {
-    header('Location: /Gestion-sena/index.php');
+    header('Location: /Gestion-sena/dashboard_sena/index.php');
     exit;
 }
 
@@ -18,26 +18,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($email) && !empty($password)) {
         try {
             $db = Database::getInstance()->getConnection();
-            $stmt = $db->prepare("SELECT * FROM usuarios WHERE email = ? AND estado = 'Activo'");
+            
+            // Buscar administrador
+            $stmt = $db->prepare("SELECT * FROM ADMINISTRADOR WHERE admin_correo = ? AND admin_estado = 'Activo'");
             $stmt->execute([$email]);
             $usuario = $stmt->fetch();
             
-            if ($usuario && password_verify($password, $usuario['password'])) {
-                // Login exitoso
-                $_SESSION['usuario_id'] = $usuario['id'];
-                $_SESSION['usuario_nombre'] = $usuario['nombre'];
-                $_SESSION['usuario_email'] = $usuario['email'];
-                $_SESSION['usuario_rol'] = $usuario['rol'];
+            if ($usuario && password_verify($password, $usuario['admin_password'])) {
+                $_SESSION['usuario_id'] = $usuario['admin_id'];
+                $_SESSION['usuario_nombre'] = $usuario['admin_nombre'];
+                $_SESSION['usuario_email'] = $usuario['admin_correo'];
+                $_SESSION['usuario_rol'] = 'Administrador';
                 
                 // Actualizar último acceso
-                $stmt = $db->prepare("UPDATE usuarios SET ultimo_acceso = NOW() WHERE id = ?");
-                $stmt->execute([$usuario['id']]);
+                $stmt = $db->prepare("UPDATE ADMINISTRADOR SET admin_ultimo_acceso = NOW() WHERE admin_id = ?");
+                $stmt->execute([$usuario['admin_id']]);
                 
-                header('Location: /Gestion-sena/index.php');
+                header('Location: /Gestion-sena/dashboard_sena/index.php');
                 exit;
-            } else {
-                $error = 'Credenciales incorrectas o usuario inactivo';
             }
+            
+            $error = 'Credenciales incorrectas o usuario inactivo';
+            
         } catch (PDOException $e) {
             $error = 'Error de conexión. Intente nuevamente.';
         }
@@ -62,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: url('/Gestion-sena/assets/images/ImagenFachada111124SENA.jpg') center/cover no-repeat fixed;
+            background: url('../../assets/img/sena%20cucuta%20copia.jpg') center/cover no-repeat fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -75,104 +77,98 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.50);
             z-index: 1;
         }
         
         .login-container {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
             overflow: hidden;
-            max-width: 950px;
+            max-width: 480px;
             width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: column;
             position: relative;
             z-index: 10;
         }
         
         .login-left {
-            background: linear-gradient(135deg, #39A900 0%, #007832 100%);
-            padding: 60px 40px;
-            color: white;
+            background: #e8f5e9;
+            padding: 50px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            color: #1f2937;
         }
         
         .logo-circle {
-            width: 120px;
-            height: 120px;
-            background: white;
-            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #39A900 0%, #2d8500 100%);
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(57, 169, 0, 0.2);
         }
         
-        .logo-circle img {
+        .logo-circle svg {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            display: block;
         }
         
         .login-left h1 {
-            font-size: 48px;
-            margin-bottom: 12px;
+            font-size: 36px;
+            margin-bottom: 10px;
             font-weight: 800;
             letter-spacing: 2px;
+            color: #1f2937;
         }
         
         .login-left p {
-            font-size: 15px;
-            opacity: 0.95;
-            line-height: 1.6;
+            font-size: 14px;
+            opacity: 0.7;
+            line-height: 1.4;
+            color: #1f2937;
         }
         
         .login-right {
-            padding: 60px 50px;
+            padding: 45px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
         
-        .login-header {
-            margin-bottom: 35px;
+        .welcome-text {
+            margin-bottom: 30px;
         }
         
-        .login-header h2 {
-            color: #007832;
-            font-size: 28px;
-            margin-bottom: 8px;
+        .welcome-text h2 {
+            color: #1f2937;
+            font-size: 24px;
+            margin-bottom: 6px;
             font-weight: 700;
         }
         
-        .login-header p {
-            color: #666;
+        .welcome-text p {
+            color: #6b7280;
             font-size: 14px;
         }
         
         .alert-error {
-            background: #ff4757;
-            color: white;
-            padding: 14px 18px;
-            border-radius: 10px;
+            background: #fee;
+            color: #c33;
+            padding: 12px 16px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .alert-error::before {
-            content: '⚠';
-            margin-right: 10px;
-            font-size: 18px;
+            font-size: 13px;
+            border-left: 3px solid #c33;
         }
         
         .form-group {
@@ -181,59 +177,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         .form-group label {
             display: block;
-            color: #007832;
+            color: #374151;
             font-weight: 600;
             margin-bottom: 8px;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .input-wrapper {
-            position: relative;
-        }
-        
-        .input-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
+            font-size: 14px;
         }
         
         .form-group input {
             width: 100%;
-            padding: 14px 16px 14px 48px;
-            border: 2px solid #e8e8e8;
-            border-radius: 10px;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
             font-size: 14px;
             font-family: inherit;
-            transition: all 0.3s;
+            transition: all 0.2s;
+            background: white;
         }
         
         .form-group input:focus {
             outline: none;
             border-color: #39A900;
-            box-shadow: 0 0 0 4px rgba(57, 169, 0, 0.1);
+            box-shadow: 0 0 0 3px rgba(57, 169, 0, 0.1);
         }
         
         .options {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             font-size: 13px;
         }
         
         .options label {
             display: flex;
             align-items: center;
-            color: #666;
+            color: #6b7280;
             cursor: pointer;
         }
         
         .options input[type="checkbox"] {
-            margin-right: 8px;
+            margin-right: 6px;
             width: 16px;
             height: 16px;
             cursor: pointer;
@@ -246,93 +229,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         .options a:hover {
-            color: #007832;
+            color: #2d8700;
         }
         
         .btn-login {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #39A900 0%, #007832 100%);
+            padding: 14px;
+            background: linear-gradient(135deg, #39A900 0%, #2d8700 100%);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 15px;
             font-weight: 700;
-            letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(57, 169, 0, 0.3);
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(57, 169, 0, 0.25);
         }
         
         .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(57, 169, 0, 0.4);
-        }
-        
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 25px 0;
-            color: #999;
-            font-size: 12px;
-        }
-        
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e8e8e8;
-        }
-        
-        .divider::before {
-            margin-right: 12px;
-        }
-        
-        .divider::after {
-            margin-left: 12px;
-        }
-        
-        .demo-box {
-            background: #f8f9fa;
-            padding: 16px;
-            border-radius: 10px;
-            font-size: 12px;
-            color: #495057;
-        }
-        
-        .demo-box strong {
-            color: #007832;
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 700;
-            font-size: 13px;
-        }
-        
-        .demo-item {
-            display: flex;
-            justify-content: space-between;
-            margin: 6px 0;
-            padding: 8px;
-            background: white;
-            border-radius: 6px;
-        }
-        
-        .demo-item span:first-child {
-            font-weight: 600;
-            color: #6c757d;
-        }
-        
-        .demo-item span:last-child {
-            font-family: 'Courier New', monospace;
-            color: #007832;
-            font-size: 11px;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(57, 169, 0, 0.35);
         }
         
         @media (max-width: 768px) {
             .login-container {
-                grid-template-columns: 1fr;
                 max-width: 450px;
             }
             
@@ -341,16 +261,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             
             .login-left h1 {
-                font-size: 36px;
+                font-size: 32px;
             }
             
             .logo-circle {
-                width: 90px;
-                height: 90px;
+                width: 80px;
+                height: 80px;
             }
             
             .login-right {
-                padding: 40px 30px;
+                padding: 35px 30px;
             }
         }
     </style>
@@ -359,16 +279,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login-container">
         <div class="login-left">
             <div class="logo-circle">
-                <img src="/Gestion-sena/assets/images/sena-logo.png" alt="Logo SENA">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <text x="24" y="34" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">S</text>
+                </svg>
             </div>
             <h1>SENA</h1>
             <p>Sistema de Gestión Académica<br>Servicio Nacional de Aprendizaje</p>
         </div>
         
         <div class="login-right">
-            <div class="login-header">
+            <div class="welcome-text">
                 <h2>Bienvenido</h2>
-                <p>Ingrese sus credenciales para continuar</p>
+                <p>Ingrese sus credenciales de administrador</p>
             </div>
             
             <?php if ($error): ?>
@@ -380,18 +302,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" action="">
                 <div class="form-group">
                     <label for="email">Correo Electrónico</label>
-                    <div class="input-wrapper">
-                        <span class="input-icon">📧</span>
-                        <input type="email" id="email" name="email" placeholder="usuario@sena.edu.co" required autofocus>
-                    </div>
+                    <input type="email" id="email" name="email" placeholder="usuario@sena.edu.co" required autofocus>
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Contraseña</label>
-                    <div class="input-wrapper">
-                        <span class="input-icon">🔒</span>
-                        <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
-                    </div>
+                    <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
                 </div>
                 
                 <div class="options">
@@ -404,20 +320,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 <button type="submit" class="btn-login">Iniciar Sesión</button>
             </form>
-            
-            <div class="divider">Credenciales de Prueba</div>
-            
-            <div class="demo-box">
-                <strong>Acceso de Demostración</strong>
-                <div class="demo-item">
-                    <span>Email:</span>
-                    <span>admin@sena.edu.co</span>
-                </div>
-                <div class="demo-item">
-                    <span>Contraseña:</span>
-                    <span>admin123</span>
-                </div>
-            </div>
         </div>
     </div>
 </body>

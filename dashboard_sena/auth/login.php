@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         body {
             font-family: 'Inter', sans-serif;
-            background: url('../../assets/img/sena%20cucuta%20copia.jpg') center/cover no-repeat fixed;
+            background: url('../assets/images/sena%20cucuta%20copia.jpg') center/cover no-repeat fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
